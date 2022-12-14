@@ -35,7 +35,6 @@ function App() {
    <Route path="/Report" element={<Report/>}/>
 
    <Route path="/Footer" element={<Footer/>} />
-   
     </Routes> 
     </BrowserRouter>
     </div>

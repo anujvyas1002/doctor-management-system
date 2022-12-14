@@ -63,24 +63,7 @@ export default function BabyRegi() {
   return (
     <>
      <Header/>
-    
-      {/* <AppBar
-    position="absolute"
-    color="default"
-    elevation={0}
-    sx={{
-      position: 'relative',
-      borderBottom: (t) => `1px solid ${t.palette.divider}`,
-    }}
-  >
-    
-    <Toolbar>
-      <Typography variant="h6" color="inherit" noWrap>
-       Doctor Management System
-      </Typography>
-    </Toolbar>
-  </AppBar> */}
-
+   
  <div style={{marginTop:"15vh"}}>
 
       <Paper elevation={20} style={paperStyle}>

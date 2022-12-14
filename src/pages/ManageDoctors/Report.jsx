@@ -4,6 +4,12 @@ import List from "@mui/material/List";
 // import ListItem from "@mui/material/ListItem";
 // import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import Header from "../../components/NavBar/Header";
 
 // const products = [
 //   {
@@ -36,10 +42,38 @@ const patient = [
   { name: "Aadhar Card number", detail: "xxxx-xxxx-xxxx-1234" },
 ];
 
-export default function Report() {
+function Copyright() {
   return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+    <Typography variant="body2" color="text.secondary" align="center">
+      {"Anka Technology © "}
+      <Link color="inherit" href="/">
+        Doctor Management System
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
+
+export default function Report() {
+
+  return (
+    <>
+      <Header/>
+      <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+        <Paper elevation={20} style={paperStyle}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+
+            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+              <Paper
+                variant="outlined"
+                sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
+              >
+             <Typography variant="h6" gutterBottom>
         Report
       </Typography>
       <List disablePadding>
@@ -83,6 +117,15 @@ export default function Report() {
           </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+
+
+              </Paper>
+              <Copyright />
+            </Container>
+          </ThemeProvider>
+        </Paper>
+      </div>
+     
+    </>
   );
 }

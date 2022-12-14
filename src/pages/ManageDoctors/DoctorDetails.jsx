@@ -60,7 +60,7 @@ export default function DoctorDetails() {
                   {...field}
                   {...register("qualification", { required: true })}
                 >
-                  <MenuItem value="">
+                   <MenuItem value="">
                     <em>Graduation</em>
                   </MenuItem>
                   <MenuItem value={10}>MBBS</MenuItem>

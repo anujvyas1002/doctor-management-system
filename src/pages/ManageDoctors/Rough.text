@@ -1,0 +1,44 @@
+  <>
+      <Header/>
+      <div style={{ marginTop: "25vh", marginBottom: "17vh" }}>
+        <Paper elevation={20} style={paperStyle}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+
+            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+              <Paper
+                variant="outlined"
+                sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
+              >
+             
+
+              </Paper>
+              <Copyright />
+            </Container>
+          </ThemeProvider>
+        </Paper>
+      </div>
+      <Footer/>
+    </>
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+      
