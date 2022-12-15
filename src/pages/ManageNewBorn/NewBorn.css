@@ -1,0 +1,17 @@
+small{
+    font-size:15px;
+    color:red;
+    text-align: left;
+    /* display:block; */
+    /* display:none; */
+  }
+  
+  label:invalid[focused="true"]{
+    border:1px solid red;
+  }
+
+  p{
+    margin-block-start: 0.1em;
+    margin-block-end: 0.1em;
+  }
+  

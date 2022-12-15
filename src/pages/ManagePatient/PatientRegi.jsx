@@ -154,10 +154,9 @@ import {
   Stepper,
   Step,
   StepLabel,
-} from "@material-ui/core";
+} from "@mui/material";
 import Grid from "@mui/material/Grid";
-
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import {
   useForm,
   Controller,
@@ -165,14 +164,14 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    marginRight: theme.spacing(1),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     marginRight: theme.spacing(1),
+//   },
+// }));
 
 function getSteps() {
-  return ["Basic information", "Patient Information", "Report"];
+  return ["Basic information", "Patient Details", "Report"];
 }
 
 function Copyright() {
@@ -204,7 +203,6 @@ const PersonalInfo = () => {
   const { control } = useFormContext();
   const [selectedDate, setSelectedDate] = React.useState();
 
-  
   return (
     <div>
       <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
@@ -214,7 +212,7 @@ const PersonalInfo = () => {
 
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
               <Typography component="h1" variant="h4" align="center">
-               Patient Registration
+                Patient Registration
               </Typography>
               <Paper
                 variant="outlined"
@@ -226,46 +224,52 @@ const PersonalInfo = () => {
                 <Grid container spacing={3}>
                   <Controller
                     control={control}
-                    name="firstName"
+                    name="firstname"
                     render={({ field }) => (
                       <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-            variant="standard"
-            {...register("firstname",{required:true, minLength:2})}
-          />
-            <small className="invalid">
-              {errors.firstname?.type === "required" && (
-                <p>First name is required.</p>
-              )}
-            </small>
-            <small className="invalid">
-              {errors.firstname?.type === "minLength" && (
-                <p>Please enter minimun 2 char.</p>
-              )}
-            </small>
-       </Grid>
+                        <TextField
+                          required
+                          id="firstname"
+                          label="First name"
+                          fullWidth
+                          autoComplete="given-name"
+                          variant="standard"
+                          {...register("firstname", {
+                            required: true,
+                            minLength: 2,
+                          })}
+                        />
+                        <small className="invalid">
+                          {errors.firstname?.type === "required" && (
+                            <p>First name is required.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.firstname?.type === "minLength" && (
+                            <p>Please enter minimun 2 char.</p>
+                          )}
+                        </small>
+                      </Grid>
                     )}
                   />
 
                   <Controller
                     control={control}
-                    name="lastName"
+                    name="middlename"
                     render={({ field }) => (
                       <Grid item xs={12} sm={6}>
-                      <TextField
-                        required
-                        id="middlename"
-                        label="Middle name"
-                        fullWidth
-                        autoComplete="middle-name"
-                        variant="standard"
-                        {...register("middlename",{required:true, minLength:2})}
-                      />
+                        <TextField
+                          required
+                          id="middlename"
+                          label="Middle name"
+                          fullWidth
+                          autoComplete="middle-name"
+                          variant="standard"
+                          {...register("middlename", {
+                            required: true,
+                            minLength: 2,
+                          })}
+                        />
                         <small className="invalid">
                           {errors.middlename?.type === "required" && (
                             <p>Middle name is required.</p>
@@ -276,7 +280,7 @@ const PersonalInfo = () => {
                             <p>Please enter minimun 2 char.</p>
                           )}
                         </small>
-                    </Grid>
+                      </Grid>
                     )}
                   />
                 </Grid>
@@ -284,18 +288,21 @@ const PersonalInfo = () => {
                 <Grid container spacing={3}>
                   <Controller
                     control={control}
-                    name="emailid"
+                    name="lastname"
                     render={({ field }) => (
                       <Grid item xs={12} sm={6}>
-                      <TextField
-                        required
-                        id="lastname"
-                        label="Last name"
-                        fullWidth
-                        autoComplete="last-name"
-                        variant="standard"
-                        {...register("lastname",{required:true, minLength:2})}
-                      />
+                        <TextField
+                          required
+                          id="lastname"
+                          label="Last name"
+                          fullWidth
+                          autoComplete="last-name"
+                          variant="standard"
+                          {...register("lastname", {
+                            required: true,
+                            minLength: 2,
+                          })}
+                        />
                         <small className="invalid">
                           {errors.lastname?.type === "required" && (
                             <p>Last name is required.</p>
@@ -306,10 +313,80 @@ const PersonalInfo = () => {
                             <p>Please enter minimun 2 char.</p>
                           )}
                         </small>
-                    </Grid>
+                      </Grid>
                     )}
                   />
 
+                  <Controller
+                    control={control}
+                    name="dateofbirth"
+                    render={({ field }) => (
+                      <Grid item xs={12} sm={6}>
+                        <div className="form-group">
+                          <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <Stack spacing={3}>
+                              <DesktopDatePicker
+                                {...register("dateofbirth", {
+                                  required: "DOB is Required",
+                                })}
+                                onChange={(newValue) => {
+                                  console.log(newValue);
+                                  setSelectedDate(newValue);
+                                }}
+                                label="Birth Date *"
+                                value={selectedDate}
+                                maxDate={new Date()}
+                                renderInput={(params) => (
+                                  <TextField {...params} />
+                                )}
+                              />
+                            </Stack>
+                          </LocalizationProvider>
+
+                          {errors.dateofbirth && (
+                            <span className="text-danger">
+                              {" "}
+                              {errors.dateofbirth.message}
+                            </span>
+                          )}
+                        </div>
+                      </Grid>
+                    )}
+                  />
+                </Grid>
+
+                <Grid container spacing={3}>
+                  <Controller
+                    control={control}
+                    name="emailid"
+                    render={({ field }) => (
+                      <Grid item xs={12} md={6}>
+                        <TextField
+                          id="emailid"
+                          label="Email Id"
+                          fullWidth
+                          autoComplete="emailId"
+                          variant="standard"
+                          {...register("emailid", {
+                            pattern:
+                              /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
+                            minLength: 2,
+                          })}
+                        />
+
+                        <small className="invalid">
+                          {errors.emailid?.type === "pattern" && (
+                            <p>Invalid Email Id.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.emailid?.type === "minLength" && (
+                            <p>Please enter minimun 2 char.</p>
+                          )}
+                        </small>
+                      </Grid>
+                    )}
+                  />
                   <Controller
                     control={control}
                     name="mobilenumber"
@@ -355,37 +432,91 @@ const PersonalInfo = () => {
                   />
                 </Grid>
 
-                <Controller
-                  control={control}
-                  name="password"
-                  render={({ field }) => (
-                    <Grid item xs={12} sm={6}>
-                    <div className="form-group">
-                          <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            
-                            <Stack spacing={3}>
-                              <DesktopDatePicker
-                                {...register("dateofbirth", { required: "DOB is Required" })}
-                                onChange={(newValue) => {
-                                  console.log(newValue)
-                                  setSelectedDate(newValue);
-                                }}
-                                label="Birth Date *"
-                                value={selectedDate}
-                                maxDate={new Date()}
-                                renderInput={(params) => <TextField {...params} />}
-                              />
-                              
-                            </Stack>
-                          </LocalizationProvider>
-            
-                          {errors.dateofbirth && (
-                            <span className="text-danger"> {errors.dateofbirth.message}</span>
+                <Grid container spacing={3}>
+                  <Controller
+                    control={control}
+                    name="aadharnumber"
+                    render={({ field }) => (
+                      <Grid item xs={12} md={6}>
+                        <TextField
+                          required
+                          id="aadharnumber"
+                          label="Aadhar Number"
+                          fullWidth
+                          autoComplete="Aadhar Number"
+                          variant="standard"
+                          {...register("aadharnumber", {
+                            required: true,
+                            pattern: /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/,
+                            minLength: 12,
+                            maxLength: 12,
+                          })}
+                        />
+
+                        <small className="invalid">
+                          {errors.aadharnumber?.type === "required" && (
+                            <p>Aadhar number is required.</p>
                           )}
-                        </div>
-                    </Grid>
-                  )}
-                />
+                        </small>
+                        <small className="invalid">
+                          {errors.aadharnumber?.type === "pattern" && (
+                            <p>Invalid Aadhar number.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.aadharnumber?.type === "minLength" && (
+                            <p>Please enter 12 digits of aadhar number.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.aadharnumber?.type === "maxLength" && (
+                            <p>Aadhar number should have 12 digits only.</p>
+                          )}
+                        </small>
+                      </Grid>
+                    )}
+                  />
+                  <Controller
+                    control={control}
+                    name="maritalstatus"
+                    render={({ field }) => (
+                      <Grid item xs={12} md={6}>
+                        <FormControl variant="standard" sx={{ minWidth: 230 }}>
+                          <InputLabel id="demo-simple-select-required-label">
+                            Marital Status{" "}
+                          </InputLabel>
+                          <Controller
+                            name="maritalstatus"
+                            id="maritalstatus"
+                            defaultValue={""}
+                            required
+                            control={control}
+                            render={({ field }) => (
+                              <Select
+                                labelId="demo-simple-select-required-label"
+                                {...field}
+                                {...register("maritalstatus", {
+                                  required: true,
+                                })}
+                              >
+                                <MenuItem value="">
+                                  <em>Marital Status</em>
+                                </MenuItem>
+                                <MenuItem value={40}>Married</MenuItem>
+                                <MenuItem value={50}>Unmarried</MenuItem>
+                              </Select>
+                            )}
+                          />
+                          <small className="invalid">
+                            {errors.maritalstatus?.type === "required" && (
+                              <p>Please select your marital status.</p>
+                            )}
+                          </small>
+                        </FormControl>
+                      </Grid>
+                    )}
+                  />
+                </Grid>
               </Paper>
               <Copyright />
             </Container>
@@ -396,7 +527,7 @@ const PersonalInfo = () => {
   );
 };
 
-const ContactForm = () => {
+const PatientDetail = () => {
   const {
     register,
     handleSubmit,
@@ -415,6 +546,9 @@ const ContactForm = () => {
   };
 
   const { control } = useFormContext();
+
+  const [selectedDate, setSelectedDate] = React.useState();
+  
   return (
     <>
       <Header />
@@ -434,59 +568,81 @@ const ContactForm = () => {
                 <Grid container spacing={3}>
                   <Controller
                     control={control}
-                    name="qualification"
+                    name="height"
                     render={({ field }) => (
-                      <Grid item md={6}>
-                        <FormControl variant="standard" sx={{ minWidth: 230 }}>
-                          <InputLabel id="demo-simple-select-required-label">
-                            Qualification *
-                          </InputLabel>
-                          <Controller
-                            name="qualification"
-                            id="qualification"
-                            defaultValue={""}
-                            control={control}
-                            render={({ field }) => (
-                              <Select
-                                labelId="demo-simple-select-required-label"
-                                {...field}
-                                {...register("qualification", {
-                                  required: true,
-                                })}
-                              >
-                                <MenuItem value="">
-                                  <em>Graduation</em>
-                                </MenuItem>
-                                <MenuItem value={10}>MBBS</MenuItem>
-                                <MenuItem value={20}>BAMS</MenuItem>
-                                <MenuItem value={30}>BHMS</MenuItem>
-                                <MenuItem value={40}>BUMS</MenuItem>
-                                <MenuItem value={50}>DHMS</MenuItem>
-                              </Select>
-                            )}
-                          />
-                          <small className="invalid">
-                            {errors.qualification?.type === "required" && (
-                              <p>Please select your qualification.</p>
-                            )}
-                          </small>
-                        </FormControl>
+                      <Grid item xs={12} md={6}>
+                        <TextField
+                          id="height"
+                          label="Height"
+                          required
+                          fullWidth
+                          autoComplete="height"
+                          variant="standard"
+                          {...register("height", {
+                            required: true,
+                            pattern: "^d{0,1}0[1-9]|1[0-2]$",
+                            maxLength: 5,
+                          })}
+                        />
+                        <small className="invalid">
+                          {errors.height?.type === "required" && (
+                            <p>Height is required.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.height?.type === "pattern" && (
+                            <p>Invalid Height.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.height?.type === "maxLength" && (
+                            <p>Height is invalid.</p>
+                          )}
+                        </small>
                       </Grid>
                     )}
                   />
 
                   <Controller
                     control={control}
-                    name="postgraduation"
+                    name="weight"
                     render={({ field }) => (
                       <Grid item xs={12} md={6}>
                         <TextField
-                          id="post-graduation"
-                          label="Post Graduation"
+                          required
+                          id="weight"
+                          label="Weight"
                           fullWidth
-                          autoComplete="PostGraduation"
+                          autoComplete="weight"
                           variant="standard"
+                          {...register("weight", {
+                            required: true,
+                            pattern: "^(0|[1-9]d*)(,d+)?$",
+                            minLength: 1,
+                            maxLength: 3,
+                          })}
                         />
+
+                        <small className="invalid">
+                          {errors.weight?.type === "required" && (
+                            <p>Weight is required.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.weight?.type === "pattern" && (
+                            <p>Invalid weight.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.weight?.type === "minLength" && (
+                            <p>Please enter valid weight.</p>
+                          )}
+                        </small>
+                        <small className="invalid">
+                          {errors.weight?.type === "maxLength" && (
+                            <p>weight should be valid.</p>
+                          )}
+                        </small>
                       </Grid>
                     )}
                   />
@@ -495,81 +651,295 @@ const ContactForm = () => {
                 <Grid container spacing={3}>
                   <Controller
                     control={control}
-                    name="selectmcr"
+                    name="desease"
                     render={({ field }) => (
-                      <Grid item md={6}>
-                        <FormControl variant="standard" sx={{ minWidth: 230 }}>
-                          <InputLabel id="demo-simple-select-required-label">
-                            Select MCR *
-                          </InputLabel>
-                          <Controller
-                            name="selectmcr"
-                            id="selectmcr"
-                            defaultValue={""}
-                            control={control}
-                            render={({ field }) => (
-                              <Select
-                                labelId="demo-simple-select-required-label"
-                                {...field}
-                                {...register("selectmcr", { required: true })}
-                              >
-                                <MenuItem value="">
-                                  <em>MCR Number</em>
-                                </MenuItem>
-                                <MenuItem value={10}>NMC Number</MenuItem>
-                                <MenuItem value={20}>MMC Number</MenuItem>
-                              </Select>
-                            )}
-                          />
-                          <small className="invalid">
-                            {errors.selectmcr?.type === "required" && (
-                              <p>Please select your MCR Number.</p>
-                            )}
-                          </small>
-                        </FormControl>
+                      <Grid item xs={12} md={6}>
+                        <TextField
+                          id="desease"
+                          label="Desease"
+                          fullWidth
+                          autoComplete="desease"
+                          variant="standard"
+                        />
                       </Grid>
                     )}
                   />
 
                   <Controller
                     control={control}
-                    name="mcrnumber"
+                    name="edd"
+                    render={({ field }) => (
+                      <Grid item xs={12} sm={6}>
+                        <div className="form-group">
+                          <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <Stack spacing={3}>
+                              <DesktopDatePicker
+                                {...register("edd", {
+                                  required: "EDD is Required",
+                                })}
+                                onChange={(newValue) => {
+                                  console.log(newValue);
+                                  setSelectedDate(newValue);
+                                }}
+                                label="Estimated Due Date *"
+                                value={selectedDate}
+                               
+                                renderInput={(params) => (
+                                  <TextField {...params} />
+                                )}
+                              />
+                            </Stack>
+                          </LocalizationProvider>
+
+                          {errors.dateofbirth && (
+                            <span className="text-danger">
+                              {" "}
+                              {errors.dateofbirth.message}
+                            </span>
+                          )}
+                        </div>
+                      </Grid>
+                    )}
+                  />
+                </Grid>
+
+                <Grid container spacing={3}>
+                  <Controller
+                    control={control}
+                    name="howmanychildren"
                     render={({ field }) => (
                       <Grid item xs={12} md={6}>
                         <TextField
-                          id="mcrnumber"
-                          label="MCR Number"
                           required
+                          id="howmanychildren"
+                          label="How Many Children"
                           fullWidth
-                          autoComplete="mcrnumber"
+                          autoComplete="howmanychildren"
                           variant="standard"
-                          {...register("mcrnumber", {
+                          {...register("howmanychildren", {
                             required: true,
-                            pattern: /^([2-9])(?!\1+$)\d{9}$/,
-                            minLength: 10,
-                            maxLength: 10,
                           })}
                         />
                         <small className="invalid">
-                          {errors.mcrnumber?.type === "required" && (
-                            <p>MCR number is required.</p>
+                          {errors.howmanychildren?.type === "required" && (
+                            <p>Field is Required.</p>
+                          )}
+                        </small>
+                      </Grid>
+                    )}
+                  />
+
+                  <Controller
+                    control={control}
+                    name="currentmonth"
+                    render={({ field }) => (
+                      <Grid item xs={12} md={6}>
+                        <FormControl variant="standard" sx={{ minWidth: 230 }}>
+                          <InputLabel id="demo-simple-select-required-label">
+                            Current Month
+                          </InputLabel>
+                          <Controller
+                            name="currentmonth"
+                            id="currentmonth"
+                            required
+                            defaultValue={""}
+                            control={control}
+                            render={({ field }) => (
+                              <Select
+                                labelId="demo-simple-select-required-label"
+                                {...field}
+                                {...register("currentmonth", {
+                                  required: true,
+                                })}
+                              >
+                                <MenuItem value="">
+                                  <em>Current Month</em>
+                                </MenuItem>
+                                <MenuItem value={10}>First</MenuItem>
+                                <MenuItem value={20}>Second</MenuItem>
+                                <MenuItem value={30}>Third</MenuItem>
+                                <MenuItem value={40}>Fourth</MenuItem>
+                                <MenuItem value={50}>Fifth</MenuItem>
+                                <MenuItem value={60}>Sixth</MenuItem>
+                                <MenuItem value={70}>Seventh</MenuItem>
+                                <MenuItem value={80}>Eighth</MenuItem>
+                                <MenuItem value={90}>ninth</MenuItem>
+                              </Select>
+                            )}
+                          />
+                          <small className="invalid">
+                            {errors.currentmonth?.type === "required" && (
+                              <p>Please select your month.</p>
+                            )}
+                          </small>
+                        </FormControl>
+                      </Grid>
+                    )}
+                  />
+                </Grid>
+
+                <Grid container spacing={3}>
+                  <Controller
+                    control={control}
+                    name="address"
+                    render={({ field }) => (
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          id="address"
+                          name="address"
+                          label="Address"
+                          fullWidth
+                          autoComplete="address"
+                          variant="standard"
+                          {...register("address", { required: true })}
+                        />
+                        <small className="invalid">
+                          {errors.address?.type === "required" && (
+                            <p>Address is required.</p>
+                          )}
+                        </small>
+                      </Grid>
+                    )}
+                  />
+                </Grid>
+
+                <Grid container spacing={3}>
+                  <Controller
+                    control={control}
+                    name="city"
+                    render={({ field }) => (
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          required
+                          id="city"
+                          name="city"
+                          label="City"
+                          fullWidth
+                          autoComplete="City"
+                          variant="standard"
+                          {...register("city", { required: true })}
+                        />
+                        <small className="invalid">
+                          {errors.city?.type === "required" && (
+                            <p>City is required.</p>
+                          )}
+                        </small>
+                      </Grid>
+                    )}
+                  />
+
+                  <Controller
+                    control={control}
+                    name="state"
+                    render={({ field }) => (
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          id="state"
+                          required
+                          label="State/Province/Region"
+                          fullWidth
+                          variant="standard"
+                          {...register("state", { required: true })}
+                        />
+                        <small className="invalid">
+                          {errors.state?.type === "required" && (
+                            <p>State is required.</p>
+                          )}
+                        </small>
+                      </Grid>
+                    )}
+                  />
+                </Grid>
+
+                <Grid container spacing={3}>
+                  <Controller
+                    control={control}
+                    name="postalcode"
+                    render={({ field }) => (
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          required
+                          id="postalcode"
+                          label="Zip / Postal code"
+                          fullWidth
+                          autoComplete="postalcode"
+                          variant="standard"
+                          {...register("postalcode", {
+                            required: true,
+                            pattern: /^([1-9])(?!\1+$)\d{5}$/,
+                            minLength: 6,
+                            maxLength: 6,
+                          })}
+                        />
+                        <small className="invalid">
+                          {errors.postalcode?.type === "required" && (
+                            <p>Postal code is required.</p>
                           )}
                         </small>
                         <small className="invalid">
-                          {errors.mcrnumber?.type === "pattern" && (
-                            <p>Invalid MCR number.</p>
+                          {errors.postalcode?.type === "pattern" && (
+                            <p>Invalid Postal code.</p>
                           )}
                         </small>
                         <small className="invalid">
-                          {errors.mcrnumber?.type === "minLength" && (
-                            <p>Please enter 10 digits of MCR number.</p>
+                          {errors.postalcode?.type === "minLength" && (
+                            <p>Please enter 6 digits of postal code.</p>
                           )}
                         </small>
                         <small className="invalid">
-                          {errors.mcrnumber?.type === "maxLength" && (
-                            <p>MCR number should have 10 digits only.</p>
+                          {errors.postalcode?.type === "maxLength" && (
+                            <p>Postal code should have 6 digits only.</p>
                           )}
                         </small>
+                      </Grid>
+                    )}
+                  />
+
+                  <Controller
+                    control={control}
+                    name="country"
+                    render={({ field }) => (
+                      <Grid item xs={12} sm={6}>
+                        <FormControl variant="standard" sx={{ minWidth: 230 }}>
+                          <InputLabel id="demo-simple-select-required-label">
+                            Country
+                          </InputLabel>
+                          <Controller
+                            name="country"
+                            id="country"
+                            required
+                            defaultValue={""}
+                            control={control}
+                            render={({ field }) => (
+                              <Select
+                                labelId="demo-simple-select-required-label"
+                                {...field}
+                                {...register("country", {
+                                  required: true,
+                                })}
+                              >
+                                <MenuItem value="">
+                                  <em>Country</em>
+                                </MenuItem>
+                                <MenuItem value={10}>Country1</MenuItem>
+                                <MenuItem value={20}>Country2</MenuItem>
+                                <MenuItem value={30}>Country3</MenuItem>
+                                <MenuItem value={40}>Country4</MenuItem>
+                                <MenuItem value={50}>Country5</MenuItem>
+                                <MenuItem value={60}>Country6</MenuItem>
+                                <MenuItem value={70}>Country7</MenuItem>
+                                <MenuItem value={80}>Country8</MenuItem>
+                                <MenuItem value={90}>Country9</MenuItem>
+                              </Select>
+                            )}
+                          />
+                          <small className="invalid">
+                            {errors.country?.type === "required" && (
+                              <p>Please select your Country.</p>
+                            )}
+                          </small>
+                        </FormControl>
                       </Grid>
                     )}
                   />
@@ -589,7 +959,7 @@ function getStepContent(step) {
     case 0:
       return <PersonalInfo />;
     case 1:
-      return <ContactForm />;
+      return <PatientDetail />;
     case 2:
       return <Report />;
     default:
@@ -598,7 +968,7 @@ function getStepContent(step) {
 }
 
 const PatientRegi = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const methods = useForm({
     defaultValues: {
       firstname: "",
@@ -675,7 +1045,6 @@ const PatientRegi = () => {
               {getStepContent(activeStep)}
 
               <Button
-                className={classes.button}
                 disabled={activeStep === 0}
                 onClick={handleBack}
               >
@@ -683,7 +1052,7 @@ const PatientRegi = () => {
               </Button>
 
               <Button
-                className={classes.button}
+                // className={classes.button}
                 variant="contained"
                 color="primary"
                 //  onClick={handleNext}
