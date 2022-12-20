@@ -11,8 +11,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Footer from "../../components/Footer/Footer";
-import './Doctor.css';
-
+import "./Doctor.css";
+import NativeSelect from "@mui/material/NativeSelect";
 
 import {
   Typography,
@@ -71,226 +71,210 @@ const PersonalInfo = () => {
   const { control } = useFormContext();
   return (
     <div>
-   
-      <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-        <Paper elevation={20} style={paperStyle}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Typography component="h1" variant="h4" align="center">
+          Doctor Registration Form
+        </Typography>
 
-            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-            <Typography component="h1" variant="h4" align="center">
-                  Doctor Registration
-                </Typography>
-              <Paper
-                variant="outlined"
-                sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
-              >
-           
-                <Typography variant="h6" gutterBottom>
-                  Personal Information
-                </Typography>
-                <Grid container spacing={3}>
-                  <Controller
-                    control={control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          required
-                          id="firstName"
-                          label="First name"
-                          fullWidth
-                          autoComplete="given-name"
-                          variant="standard"
-                          {...register("firstname", {
-                            required: true,
-                            minLength: 2,
-                          })}
-                        />
-                        <small className="invalid">
-                          {errors.firstname?.type === "required" && (
-                            <p>First name is required.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.firstname?.type === "minLength" && (
-                            <p>Please enter minimun 2 char.</p>
-                          )}
-                        </small>
-                      </Grid>
-                    )}
-                  />
-
-                  <Controller
-                    control={control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          required
-                          id="lastName"
-                          name="lastName"
-                          label="Last name"
-                          fullWidth
-                          autoComplete="family-name"
-                          variant="standard"
-                          {...register("lastname", {
-                            required: true,
-                            minLength: 2,
-                          })}
-                        />
-                        <small className="invalid">
-                          {errors.lastname?.type === "required" && (
-                            <p>Last name is required.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.lastname?.type === "minlength" && (
-                            <p>Please enter minimum 2 char.</p>
-                          )}
-                        </small>
-                      </Grid>
-                    )}
-                  />
-                </Grid>
-
-                <Grid container spacing={3}>
-                  <Controller
-                    control={control}
-                    name="emailid"
-                    render={({ field }) => (
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          required
-                          id="emailId"
-                          label="Email Id"
-                          fullWidth
-                          autoComplete="emailId"
-                          variant="standard"
-                          {...register("emailid", {
-                            required: true,
-                            pattern:
-                              /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
-                            minLength: 2,
-                          })}
-                        />
-                        <small className="invalid">
-                          {errors.emailid?.type === "required" && (
-                            <p>Email id is required.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.emailid?.type === "pattern" && (
-                            <p>Invalid Email Id.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.emailid?.type === "minLength" && (
-                            <p>Please enter minimun 2 char.</p>
-                          )}
-                        </small>
-                      </Grid>
-                    )}
-                  />
-
-                  <Controller
-                    control={control}
-                    name="mobilenumber"
-                    render={({ field }) => (
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          required
-                          id="mobilenumber"
-                          label="Mobile Number"
-                          fullWidth
-                          autoComplete="Mobile Number"
-                          variant="standard"
-                          {...register("mobilenumber", {
-                            required: true,
-                            pattern: /^([2-9])(?!\1+$)\d{9}$/,
-                            minLength: 10,
-                            maxLength: 10,
-                          })}
-                        />
-
-                        <small className="invalid">
-                          {errors.mobilenumber?.type === "required" && (
-                            <p>Mobile number is required.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.mobilenumber?.type === "pattern" && (
-                            <p>Invalid Mobile number.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.mobilenumber?.type === "minLength" && (
-                            <p>Please enter 10 digits of mobile number.</p>
-                          )}
-                        </small>
-                        <small className="invalid">
-                          {errors.mobilenumber?.type === "maxLength" && (
-                            <p>Mobile number should have 10 digits only.</p>
-                          )}
-                        </small>
-                      </Grid>
-                    )}
-                  />
-                </Grid>
-
-                <Controller
-                  control={control}
-                  name="password"
-                  render={({ field }) => (
-                    <Grid item xs={12} md={6} style={{ marginBottom: "15px" }}>
-                      <TextField
-                        required
-                        id="password"
-                        label="password"
-                        fullWidth
-                        type="password"
-                        autoComplete="password"
-                        variant="standard"
-                        {...register("password", {
-                          required: true,
-                          pattern:
-                            /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/,
-                          minLength: 8,
-                          maxLength: 10,
-                        })}
-                      />
-                      <small className="invalid">
-                        {errors.password?.type === "required" && (
-                          <p>Password is required.</p>
-                        )}
-                      </small>
-                      <small className="invalid">
-                        {errors.password?.type === "pattern" && (
-                          <p>
-                            Password must contain 1 uppercase, 1 lowercase, 1
-                            number, and 1 special character.
-                          </p>
-                        )}
-                      </small>
-                      <small className="invalid">
-                        {errors.password?.type === "minLength" && (
-                          <p>Please enter minimum 8 char.</p>
-                        )}
-                      </small>
-                      <small className="invalid">
-                        {errors.password?.type === "maxLength" && (
-                          <p>Please enter maximum 10 char.</p>
-                        )}
-                      </small>
-                    </Grid>
-                  )}
+        <Typography variant="h6" gutterBottom>
+          Personal Information
+        </Typography>
+        <Grid container spacing={3}>
+          <Controller
+            control={control}
+            name="firstName"
+            render={({ field }) => (
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="firstName"
+                  label="First name"
+                  fullWidth
+                  autoComplete="given-name"
+                  variant="standard"
+                  {...register("firstname", {
+                    required: true,
+                    minLength: 2,
+                  })}
                 />
-              </Paper>
-              <Copyright />
-            </Container>
-          </ThemeProvider>
-        </Paper>
-      </div>
+                <small className="invalid">
+                  {errors.firstname?.type === "required" && (
+                    <p>First name is required.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.firstname?.type === "minLength" && (
+                    <p>Please enter minimun 2 char.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="lastName"
+            render={({ field }) => (
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="lastName"
+                  name="lastName"
+                  label="Last name"
+                  fullWidth
+                  autoComplete="family-name"
+                  variant="standard"
+                  {...register("lastname", {
+                    required: true,
+                    minLength: 2,
+                  })}
+                />
+                <small className="invalid">
+                  {errors.lastname?.type === "required" && (
+                    <p>Last name is required.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.lastname?.type === "minlength" && (
+                    <p>Please enter minimum 2 char.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+        </Grid>
+
+        <Grid container spacing={3}>
+          <Controller
+            control={control}
+            name="emailid"
+            render={({ field }) => (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  required
+                  id="emailId"
+                  label="Email Id"
+                  fullWidth
+                  autoComplete="emailId"
+                  variant="standard"
+                  {...register("emailid", {
+                    required: true,
+                    pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
+                    minLength: 2,
+                  })}
+                />
+                <small className="invalid">
+                  {errors.emailid?.type === "required" && (
+                    <p>Email id is required.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.emailid?.type === "pattern" && (
+                    <p>Invalid Email Id.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.emailid?.type === "minLength" && (
+                    <p>Please enter minimun 2 char.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="mobilenumber"
+            render={({ field }) => (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  required
+                  id="mobilenumber"
+                  label="Mobile Number"
+                  fullWidth
+                  autoComplete="Mobile Number"
+                  variant="standard"
+                  {...register("mobilenumber", {
+                    required: true,
+                    pattern: /^([2-9])(?!\1+$)\d{9}$/,
+                    minLength: 10,
+                    maxLength: 10,
+                  })}
+                />
+
+                <small className="invalid">
+                  {errors.mobilenumber?.type === "required" && (
+                    <p>Mobile number is required.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.mobilenumber?.type === "pattern" && (
+                    <p>Invalid Mobile number.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.mobilenumber?.type === "minLength" && (
+                    <p>Please enter 10 digits of mobile number.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.mobilenumber?.type === "maxLength" && (
+                    <p>Mobile number should have 10 digits only.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+        </Grid>
+
+        <Controller
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <Grid item xs={12} md={6} style={{ marginBottom: "15px" }}>
+              <TextField
+                required
+                id="password"
+                label="password"
+                fullWidth
+                type="password"
+                autoComplete="password"
+                variant="standard"
+                {...register("password", {
+                  required: true,
+                  pattern:
+                    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/,
+                  minLength: 8,
+                  maxLength: 10,
+                })}
+              />
+              <small className="invalid">
+                {errors.password?.type === "required" && (
+                  <p>Password is required.</p>
+                )}
+              </small>
+              <small className="invalid">
+                {errors.password?.type === "pattern" && (
+                  <p>
+                    Password must contain 1 uppercase, 1 lowercase, 1 number,
+                    and 1 special character.
+                  </p>
+                )}
+              </small>
+              <small className="invalid">
+                {errors.password?.type === "minLength" && (
+                  <p>Please enter minimum 8 char.</p>
+                )}
+              </small>
+              <small className="invalid">
+                {errors.password?.type === "maxLength" && (
+                  <p>Please enter maximum 10 char.</p>
+                )}
+              </small>
+            </Grid>
+          )}
+        />
+      </Container>
     </div>
   );
 };
@@ -316,170 +300,146 @@ const ContactForm = () => {
   const { control } = useFormContext();
   return (
     <>
-    <Header/>
-    <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-      <Paper elevation={20} style={paperStyle}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Doctor Details
+        </Typography>
+        <Grid container spacing={3}>
 
-          <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-            <Paper
-              variant="outlined"
-              sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
-            >
-            <Typography variant="h6" gutterBottom>
-            Doctor Details
-          </Typography>
-          <Grid container spacing={3}>
-            <Controller
-              control={control}
-              name="qualification"
-              render={({ field }) => (
-                <Grid item md={6}>
-                  <FormControl variant="standard" sx={{ minWidth: 230 }}>
-                    <InputLabel id="demo-simple-select-required-label">
-                      Qualification *
-                    </InputLabel>
-                    <Controller
-                      name="qualification"
-                      id="qualification"
-                      defaultValue={""}
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          labelId="demo-simple-select-required-label"
-                          {...field}
-                          {...register("qualification", { required: true })}
-                        >
-                          <MenuItem value="">
-                            <em>Graduation</em>
-                          </MenuItem>
-                          <MenuItem value={10}>MBBS</MenuItem>
-                          <MenuItem value={20}>BAMS</MenuItem>
-                          <MenuItem value={30}>BHMS</MenuItem>
-                          <MenuItem value={40}>BUMS</MenuItem>
-                          <MenuItem value={50}>DHMS</MenuItem>
-                        </Select>
-                      )}
-                    />
-                    <small className="invalid">
-                      {errors.qualification?.type === "required" && (
-                        <p>Please select your qualification.</p>
-                      )}
-                    </small>
-                  </FormControl>
-                </Grid>
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="postgraduation"
-              render={({ field }) => (
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    id="post-graduation"
-                    label="Post Graduation"
-                    fullWidth
-                    autoComplete="PostGraduation"
-                    variant="standard"
-                  />
-                </Grid>
-              )}
-            />
-          </Grid>
-
-          <Grid container spacing={3}>
-            <Controller
-              control={control}
-              name="selectmcr"
-              render={({ field }) => (
-                <Grid item md={6}>
-                  <FormControl variant="standard" sx={{ minWidth: 230 }}>
-                    <InputLabel id="demo-simple-select-required-label">
-                      Select MCR *
-                    </InputLabel>
-                    <Controller
-                      name="selectmcr"
-                      id="selectmcr"
-                      defaultValue={""}
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          labelId="demo-simple-select-required-label"
-                          {...field}
-                          {...register("selectmcr", { required: true })}
-                        >
-                          <MenuItem value="">
-                            <em>MCR Number</em>
-                          </MenuItem>
-                          <MenuItem value={10}>NMC Number</MenuItem>
-                          <MenuItem value={20}>MMC Number</MenuItem>
-                        </Select>
-                      )}
-                    />
-                    <small className="invalid">
-                      {errors.selectmcr?.type === "required" && (
-                        <p>Please select your MCR Number.</p>
-                      )}
-                    </small>
-                  </FormControl>
-                </Grid>
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="mcrnumber"
-              render={({ field }) => (
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    id="mcrnumber"
-                    label="MCR Number"
+        <Controller
+            name="qualifiaction"
+            id="qualifiaction"
+            defaultValue={""}
+            control={control}
+            render={({ field }) => (
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                   Qualification *
+                  </InputLabel>
+                  <NativeSelect
+                    autoComplete="qualifiaction"
                     required
-                    fullWidth
-                    autoComplete="mcrnumber"
-                    variant="standard"
-                    {...register("mcrnumber", {
-                      required: true,
-                      pattern: /^([2-9])(?!\1+$)\d{9}$/,
-                      minLength: 10,
-                      maxLength: 10,
-                    })}
-                  />
-                  <small className="invalid">
-                    {errors.mcrnumber?.type === "required" && (
-                      <p>MCR number is required.</p>
-                    )}
-                  </small>
-                  <small className="invalid">
-                    {errors.mcrnumber?.type === "pattern" && (
-                      <p>Invalid MCR number.</p>
-                    )}
-                  </small>
-                  <small className="invalid">
-                    {errors.mcrnumber?.type === "minLength" && (
-                      <p>Please enter 10 digits of MCR number.</p>
-                    )}
-                  </small>
-                  <small className="invalid">
-                    {errors.mcrnumber?.type === "maxLength" && (
-                      <p>MCR number should have 10 digits only.</p>
-                    )}
-                  </small>
-                </Grid>
-              )}
-            />
-          </Grid>
+                    defaultValue=" "
+                    inputProps={{
+                      name: "qualifiaction",
+                      id: "uncontrolled-native",
+                    }}
+                  >
+                    <option value=""></option>
+                    <option value={10}>MBBS</option>
+                        <option value={20}>BAMS</option>
+                        <option value={30}>BHMS</option>
+                        <option value={40}>BUMS</option>
+                        <option value={50}>DHMS</option>
+                  </NativeSelect>
+                </FormControl>
+                <small className="invalid">
+                  {errors.qualifiaction?.type === "required" && (
+                    <p>Select MCR,it is required </p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
 
-            </Paper>
-            <Copyright />
-          </Container>
-        </ThemeProvider>
-      </Paper>
-    </div>
-  
-  </>
+          <Controller
+            control={control}
+            name="postgraduation"
+            render={({ field }) => (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="post-graduation"
+                  label="Post Graduation"
+                  fullWidth
+                  autoComplete="PostGraduation"
+                  variant="standard"
+                />
+              </Grid>
+            )}
+          />
+        </Grid>
+
+        <Grid container spacing={3}>
+          <Controller
+            name="selectmcr"
+            id="selectmcr"
+            defaultValue={""}
+            control={control}
+            render={({ field }) => (
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                    Select MCR
+                  </InputLabel>
+                  <NativeSelect
+                    autoComplete="Select mcr"
+                    required
+                    defaultValue=" "
+                    inputProps={{
+                      name: "maritalstatus",
+                      id: "uncontrolled-native",
+                    }}
+                  >
+                    <option value=""></option>
+                    <option value={20}>NMC Number</option>
+                    <option value={30}>MMC Number</option>
+                  </NativeSelect>
+                </FormControl>
+                <small className="invalid">
+                  {errors.selectmcr?.type === "required" && (
+                    <p>Select MCR.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="mcrnumber"
+            render={({ field }) => (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="mcrnumber"
+                  label="MCR Number"
+                  required
+                  fullWidth
+                  autoComplete="mcrnumber"
+                  variant="standard"
+                  {...register("mcrnumber", {
+                    required: true,
+                    pattern: /^([2-9])(?!\1+$)\d{9}$/,
+                    minLength: 10,
+                    maxLength: 10,
+                  })}
+                />
+                <small className="invalid">
+                  {errors.mcrnumber?.type === "required" && (
+                    <p>MCR number is required.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.mcrnumber?.type === "pattern" && (
+                    <p>Invalid MCR number.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.mcrnumber?.type === "minLength" && (
+                    <p>Please enter 10 digits of MCR number.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.mcrnumber?.type === "maxLength" && (
+                    <p>MCR number should have 10 digits only.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+        </Grid>
+      </Container>
+    </>
   );
 };
 
@@ -490,7 +450,7 @@ function getStepContent(step) {
     case 1:
       return <ContactForm />;
     case 2:
-        return <Report />;
+      return <Report />;
     default:
       return "unknown step";
   }
@@ -510,6 +470,7 @@ const DoctorRegi = () => {
       mcrnumber: "",
     },
   });
+
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
@@ -517,10 +478,12 @@ const DoctorRegi = () => {
     return step === 1 || step === 2;
   };
 
+  const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
+
   const handleNext = (data) => {
     console.log(data);
     if (activeStep == steps.length - 1) {
-      fetch("https://jsonplaceholder.typicode.com/comments")
+      fetch("http://localhost:3000/doctorregi")
         .then((data) => data.json())
         .then((res) => {
           console.log(res);
@@ -528,7 +491,6 @@ const DoctorRegi = () => {
         });
     } else {
       setActiveStep(activeStep + 1);
-   
     }
   };
 
@@ -537,53 +499,71 @@ const DoctorRegi = () => {
   };
 
   return (
-    <div>
-      <Header/>
-      <Stepper alternativeLabel activeStep={activeStep}>
-        {steps.map((step, index) => {
-          const labelProps = {};
-          const stepProps = {};
-       
-          return (
-            <Step {...stepProps} key={index}>
-              <StepLabel {...labelProps}>{step}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-
-      {activeStep === steps.length ? (
-        <Typography variant="h3" align="center">
-          Thank You
-        </Typography>
-      ) : (
-        <>
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleNext)}>
-              {getStepContent(activeStep)}
-
-              <Button
-                className={classes.button}
-                disabled={activeStep === 0}
-                onClick={handleBack}
+    <>
+      <Header />
+      <div style={{ marginTop: "10vh", marginBottom: "10vh" }}>
+        <Paper elevation={20} style={paperStyle}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <form>
+            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+              <Paper
+                variant="outlined"
+                sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
               >
-                back
-              </Button>
-          
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="primary"
-                //  onClick={handleNext}
-                type="submit"
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
+                
+                <Stepper alternativeLabel activeStep={activeStep}>
+                  {steps.map((step, index) => {
+                    const labelProps = {};
+                    const stepProps = {};
+
+                    return (
+                      <Step {...stepProps} key={index}>
+                        <StepLabel {...labelProps}>{step}</StepLabel>
+                      </Step>
+                    );
+                  })}
+                </Stepper>
+
+                {activeStep === steps.length ? (
+                  <Typography variant="h3" align="center">
+                    Thank You
+                  </Typography>
+                ) : (
+                  <>
+                    <FormProvider {...methods}>
+                      <form onSubmit={methods.handleSubmit(handleNext)}>
+                        {getStepContent(activeStep)}
+
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={handleBack}
+                        >
+                          back
+                        </Button>
+
+                        <Button
+                          className={classes.button}
+                          variant="contained"
+                          color="primary"
+                          //  onClick={handleNext}
+                          type="submit"
+                        >
+                          {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                        </Button>
+                      </form>
+                    </FormProvider>
+                  </>
+                )}
+              </Paper>
+              <Copyright />
+            </Container>
             </form>
-          </FormProvider>
-        </>
-      )}
-    </div>
+          </ThemeProvider>
+        </Paper>
+      </div>
+      <Footer />
+    </>
   );
 };
 

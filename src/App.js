@@ -14,6 +14,10 @@ import AboutUs from './pages/DashBoard/AboutUs';
 import Report from './pages/DashBoard/Report';
 import ContactUs from './pages/DashBoard/ContactUs';
 
+// import { CssBaseline, Container, Paper, Box } from "@material-ui/core";
+
+
+
 function App() {
   return (
     <div className="App">
@@ -25,9 +29,11 @@ function App() {
    <Route path="/BabyRegi" element={<BabyRegi />} />
    <Route path="/DoctorLogin" element={<DoctorLogin/>} />
    <Route path="/Dashboard" element={<Dashboard/>} />
-   <Route path="/PatientRegi" element={<PatientRegi />} />
+   <Route path="/PatientRegi" element={<PatientRegi/>} />
    <Route path="/NewBornHistory" element={<NewBornHistory/>} />
    <Route path="PregnancyHistory" element={<PregnancyHistory/>} />
+
+
 
    <Route path="/Home" elemet={<Home/>}  /> 
    <Route path="/AboutUs" element={<AboutUs/>} />
@@ -37,6 +43,16 @@ function App() {
    <Route path="/Footer" element={<Footer/>} />
     </Routes> 
     </BrowserRouter>
+
+    {/* <>
+      <CssBaseline />
+      <Container component={Box} p={4}>
+        <Paper component={Box} p={3}>
+          <PatientRegistration />
+        </Paper>
+      </Container>
+    </> */}
+
     </div>
   );
 }

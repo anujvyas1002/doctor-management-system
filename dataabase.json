@@ -1,0 +1,72 @@
+{
+  "newbornregistration": [
+    {
+      "id": 1,
+      "mothername": "Gauri",
+      "fathername": "Sham",
+      "gender":"Female",
+      "dateandtime":"08/18/2014 09:11 PM",
+      "weight":"4",
+      "apgarscore":"4/5",
+      "delivery":"Naturak Birth",
+      "address":"Pune",
+      "city":"Pune",
+      "state":"Maharashtra",
+      "zipcode":"346745",
+      "country":"India",
+      "hospitalname":"OM SAI HOSPITAL",
+      "doctorname":"raj kale",
+      "phonenumber":"4598673456",
+      "emailid":"gauri@gmail.com",
+      "vaccination":"vaccine1"
+    }
+  ],
+  "doctorregi": [
+    {
+      "id": 1,
+      "firstName": "Tejali",
+      "lastName": "Rathod",
+      "emailid": "tejali@gmail.com",
+      "mobilenumber": "9845673445",
+      "qualification": "MBBS",
+      "postgraduation": "",
+      "selectmcr": "NCR",
+      "mcrnumber": "3445674556"
+    }
+  ],
+  "patientregi": [
+    {
+      "id": 1,
+      "firstname": "Gauri",
+      "middlename": "Sham",
+      "lastname": "Gajre",
+      "dateofbirth": "20-02-1997",
+      "emailId": "gauri@gmail.com",
+      "mobilenumber": "98457687",
+      "aadharnumber": "938573957314",
+      "maritalstatus": "Married",
+      "height":"5",
+      "weight":"55",
+      "desease":"-",
+      "edd":"12/19/2022",
+      "howmanychildren":"1",
+      "currentmonth":"4th",
+      "address":"Pune",
+      "city":"Pune",
+      "state":"Maharashtra",
+      "postalcode":"5667348",
+      "country":"India"
+    }
+  ],
+
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+} 
