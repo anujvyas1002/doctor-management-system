@@ -91,7 +91,9 @@ const PersonalInfo = () => {
                   {...register("firstname", {
                     required: true,
                     minLength: 2,
+                    
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.firstname?.type === "required" && (
@@ -124,6 +126,7 @@ const PersonalInfo = () => {
                     required: true,
                     minLength: 2,
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.lastname?.type === "required" && (
@@ -158,6 +161,7 @@ const PersonalInfo = () => {
                     pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
                     minLength: 2,
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.emailid?.type === "required" && (
@@ -196,6 +200,7 @@ const PersonalInfo = () => {
                     minLength: 10,
                     maxLength: 10,
                   })}
+                  {...field}
                 />
 
                 <small className="invalid">
@@ -243,6 +248,7 @@ const PersonalInfo = () => {
                   minLength: 8,
                   maxLength: 10,
                 })}
+                {...field}
               />
               <small className="invalid">
                 {errors.password?.type === "required" && (
@@ -298,8 +304,8 @@ const ContactForm = () => {
         </Typography>
         <Grid container spacing={3}>
           <Controller
-            name="qualifiaction"
-            id="qualifiaction"
+            name="qualification"
+            id="qualification"
             defaultValue={""}
             control={control}
             render={({ field }) => (
@@ -309,25 +315,27 @@ const ContactForm = () => {
                     Qualification *
                   </InputLabel>
                   <NativeSelect
-                    autoComplete="qualifiaction"
+                    autoComplete="qualification"
                     required
                     defaultValue=" "
                     inputProps={{
-                      name: "qualifiaction",
+                      name: "qualification",
                       id: "uncontrolled-native",
                     }}
+                    {...field}
                   >
                     <option value=""></option>
-                    <option value={10}>MBBS</option>
-                    <option value={20}>BAMS</option>
-                    <option value={30}>BHMS</option>
-                    <option value={40}>BUMS</option>
-                    <option value={50}>DHMS</option>
+                    <option value="MBBS">MBBS</option>
+                    <option value="BAMS">BAMS</option>
+                    <option value="BHMS">BHMS</option>
+                    <option value="BUMS">BUMS</option>
+                    <option value="DHMS">DHMS</option>
                   </NativeSelect>
+                  
                 </FormControl>
                 <small className="invalid">
-                  {errors.qualifiaction?.type === "required" && (
-                    <p>Select MCR,it is required </p>
+                  {errors.qualification?.type === "required" && (
+                    <p>Select Qualification,it is required </p>
                   )}
                 </small>
               </Grid>
@@ -345,9 +353,11 @@ const ContactForm = () => {
                   fullWidth
                   autoComplete="PostGraduation"
                   variant="standard"
+                  {...field}
                 />
               </Grid>
             )}
+            
           />
         </Grid>
 
@@ -361,24 +371,25 @@ const ContactForm = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                    Select MCR
+                    Select MCR *
                   </InputLabel>
                   <NativeSelect
                     autoComplete="Select mcr"
                     required
                     defaultValue=" "
                     inputProps={{
-                      name: "maritalstatus",
+                      name: "selectmcr",
                       id: "uncontrolled-native",
                     }}
+                    {...field}
                   >
                     <option value=""></option>
-                    <option value={20}>NMC Number</option>
-                    <option value={30}>MMC Number</option>
+                    <option value="NMC Number">NMC Number</option>
+                    <option value="NMC Number">MMC Number</option>
                   </NativeSelect>
                 </FormControl>
                 <small className="invalid">
-                  {errors.selectmcr?.type === "required" && <p>Select MCR.</p>}
+                  {errors.selectmcr?.type === "required" && <p>Select MCR, It's required</p>}
                 </small>
               </Grid>
             )}
@@ -402,6 +413,7 @@ const ContactForm = () => {
                     minLength: 10,
                     maxLength: 10,
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.mcrnumber?.type === "required" && (
@@ -445,19 +457,19 @@ function getStepContent(step) {
   }
 }
 
-const DoctorRegi = (doctor,e) => {
+const DoctorRegi = (e) => {
   const classes = useStyles();
-  console.log(doctor.firstName);
   const methods = useForm({
     defaultValues: {
-      firstName:doctor.firstName,
-      lastName:doctor.lastName,
-      emailid:doctor.emailid,
-      mobilenumber:doctor.mobilenuber,
-      qualification:doctor.qualification,
-      postgraduation:doctor.postgraduation,
-      selectmcr:doctor.selectmcr,
-      mcrnumber:doctor.mcrnumber,
+      firstName:"",
+      lastName:"",
+      emailid:"",
+      mobilenumber:"",
+      password:"",
+      qualification:"",
+      postgraduation:"",
+      selectmcr:"",
+      mcrnumber:"",
     },
   });
 
@@ -476,10 +488,9 @@ const DoctorRegi = (doctor,e) => {
 
   const handleNext = (doctor) => {
     console.log(doctor); 
-    
     if (activeStep === steps.length - 1) {
-      axios.post(`http://localhost:3000/doctorregi`,doctor)
-        //  .then((doctor) => doctor.json())
+     axios.post(`http://localhost:3000/doctorregi`,doctor)
+      // .then((doctor) => doctor.json())
         .then((res) => {
           console.log(res);
           console.log(res.data);
@@ -542,7 +553,7 @@ const DoctorRegi = (doctor,e) => {
                           className={classes.button}
                           variant="contained"
                           color="primary"
-                            onClick={handleNext}
+                            // onClick={handleNext}
                           type="submit"
                         >
                           {activeStep === steps.length - 1 ? "Finish" : "Next"}

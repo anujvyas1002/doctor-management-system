@@ -33,6 +33,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 
+import axios from "axios";
+
 // const useStyles = makeStyles((theme) => ({
 //   button: {
 //     marginRight: theme.spacing(1),
@@ -96,6 +98,7 @@ const PersonalInfo = () => {
                     required: true,
                     minLength: 2,
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.firstname?.type === "required" && (
@@ -127,6 +130,7 @@ const PersonalInfo = () => {
                     required: true,
                     minLength: 2,
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.middlename?.type === "required" && (
@@ -160,6 +164,7 @@ const PersonalInfo = () => {
                     required: true,
                     minLength: 2,
                   })}
+                  {...field}
                 />
                 <small className="invalid">
                   {errors.lastname?.type === "required" && (
@@ -195,6 +200,7 @@ const PersonalInfo = () => {
                         value={selectedDate}
                         maxDate={new Date()}
                         renderInput={(params) => <TextField {...params} />}
+                        {...field}
                       />
                     </Stack>
                   </LocalizationProvider>
@@ -204,10 +210,12 @@ const PersonalInfo = () => {
                       {" "}
                       {errors.dateofbirth.message}
                     </span>
+
                   )}
                 </div>
               </Grid>
             )}
+      
           />
         </Grid>
 
@@ -227,6 +235,7 @@ const PersonalInfo = () => {
                     pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
                     minLength: 2,
                   })}
+                  {...field}
                 />
 
                 <small className="invalid">
@@ -260,6 +269,7 @@ const PersonalInfo = () => {
                     minLength: 10,
                     maxLength: 10,
                   })}
+                  {...field}
                 />
 
                 <small className="invalid">
@@ -306,6 +316,7 @@ const PersonalInfo = () => {
                     minLength: 12,
                     maxLength: 12,
                   })}
+                  {...field}
                 />
 
                 <small className="invalid">
@@ -348,6 +359,7 @@ const PersonalInfo = () => {
                       name: "maritalstatus",
                       id: "uncontrolled-native",
                     }}
+                    {...field}
                   >
                     <option value=""></option>
                     <option value={20}>Married</option>
@@ -415,6 +427,7 @@ const PatientDetail = () => {
                       pattern: "^d{0,1}0[1-9]|1[0-2]$",
                       maxLength: 5,
                     })}
+                    {...field}
                   />
                   <small className="invalid">
                     {errors.height?.type === "required" && (
@@ -453,6 +466,7 @@ const PatientDetail = () => {
                       minLength: 1,
                       maxLength: 3,
                     })}
+                    {...field}
                   />
 
                   <small className="invalid">
@@ -492,6 +506,7 @@ const PatientDetail = () => {
                     fullWidth
                     autoComplete="desease"
                     variant="standard"
+                    {...field}
                   />
                 </Grid>
               )}
@@ -516,6 +531,7 @@ const PatientDetail = () => {
                           label="Estimated Due Date *"
                           value={selectedDate}
                           renderInput={(params) => <TextField {...params} />}
+                          {...field}
                         />
                       </Stack>
                     </LocalizationProvider>
@@ -548,6 +564,7 @@ const PatientDetail = () => {
                     {...register("howmanychildren", {
                       required: true,
                     })}
+                    {...field}
                   />
                   <small className="invalid">
                     {errors.howmanychildren?.type === "required" && (
@@ -578,6 +595,7 @@ const PatientDetail = () => {
                         name: "currentmonth",
                         id: "uncontrolled-native",
                       }}
+                      {...field}
                     >
                       <option value=""></option>
                       <option value={10}>First</option>
@@ -616,6 +634,7 @@ const PatientDetail = () => {
                     autoComplete="address"
                     variant="standard"
                     {...register("address", { required: true })}
+                    {...field}
                   />
                   <small className="invalid">
                     {errors.address?.type === "required" && (
@@ -642,6 +661,7 @@ const PatientDetail = () => {
                     autoComplete="City"
                     variant="standard"
                     {...register("city", { required: true })}
+                    {...field}
                   />
                   <small className="invalid">
                     {errors.city?.type === "required" && (
@@ -664,6 +684,7 @@ const PatientDetail = () => {
                     fullWidth
                     variant="standard"
                     {...register("state", { required: true })}
+                    {...field}
                   />
                   <small className="invalid">
                     {errors.state?.type === "required" && (
@@ -694,6 +715,7 @@ const PatientDetail = () => {
                       minLength: 6,
                       maxLength: 6,
                     })}
+                    {...field}
                   />
                   <small className="invalid">
                     {errors.postalcode?.type === "required" && (
@@ -739,6 +761,7 @@ const PatientDetail = () => {
                         name: "country",
                         id: "uncontrolled-native",
                       }}
+                      {...field}
                     >
                       <option value="">
                         <em>Country</em>
@@ -817,11 +840,10 @@ const PatientRegi = () => {
     return step === 1 || step === 2;
   };
 
-  const handleNext = (data) => {
-    console.log(data);
-    if (activeStep == steps.length - 1) {
-      fetch("https://jsonplaceholder.typicode.com/comments")
-        .then((data) => data.json())
+  const handleNext = (patient) => {
+    console.log(patient);
+    if (activeStep === steps.length - 1) {
+    axios.post("http://localhost:3000/patientregi",patient)
         .then((res) => {
           console.log(res);
           setActiveStep(activeStep + 1);
@@ -830,6 +852,8 @@ const PatientRegi = () => {
       setActiveStep(activeStep + 1);
     }
   };
+
+
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);

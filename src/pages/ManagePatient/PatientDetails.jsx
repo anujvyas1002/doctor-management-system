@@ -14,7 +14,6 @@ import FormControl from "@mui/material/FormControl";
 export default function PatientDetails() {
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm({

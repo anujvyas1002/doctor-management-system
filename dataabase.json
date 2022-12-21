@@ -50,19 +50,16 @@
       "id": 3
     },
     {
-      "selectmcr": "",
-      "qualifiaction": "",
-      "id": 4
-    },
-    {
-      "selectmcr": "",
-      "qualifiaction": "",
-      "id": 5
-    },
-    {
-      "selectmcr": "",
-      "qualifiaction": "",
-      "id": 6
+      "firstName": "Gauri",
+      "lastName": "Khedkar",
+      "emailid": "gauri@gmail.com",
+      "mobilenumber": "2345678887",
+      "password": "Gauri@123",
+      "qualification": "BAMS",
+      "postgraduation": "POst graduation",
+      "selectmcr": "NMC Number",
+      "mcrnumber": "987654",
+      "id": 18
     }
   ],
   "patientregi": [
@@ -87,6 +84,29 @@
       "state": "Maharashtra",
       "postalcode": "5667348",
       "country": "India"
+    },
+    {
+      "firstname": "Anuja",
+      "middlename": "ram",
+      "lastname": "deshmukh",
+      "dateofbirth": "2022-12-01T18:30:00.000Z",
+      "emailId": "",
+      "mobilenumber": "4567455689",
+      "aadharnumber": "234589674567",
+      "maritalstatus": "20",
+      "height": "5",
+      "weight": "48",
+      "desease": "-",
+      "edd": "2022-12-14T18:30:00.000Z",
+      "howmanychildren": "1",
+      "currentmonth": "20",
+      "address": "pune",
+      "city": "pune",
+      "state": "Maharashtra",
+      "postalcode": "423604",
+      "country": "10",
+      "emailid": "anuja@gmail.com",
+      "id": 2
     }
   ],
   "comments": [
