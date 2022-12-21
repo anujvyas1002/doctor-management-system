@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Header from "../../components/NavBar/Header";
 import Report from "../ManageNewBorn/Report";
 import Link from "@mui/material/Link";
@@ -13,6 +11,7 @@ import Container from "@mui/material/Container";
 import Footer from "../../components/Footer/Footer";
 import "./Doctor.css";
 import NativeSelect from "@mui/material/NativeSelect";
+import axios from "axios";
 
 import {
   Typography,
@@ -60,13 +59,10 @@ const theme = createTheme();
 const PersonalInfo = () => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
   });
-
-  const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
 
   const { control } = useFormContext();
   return (
@@ -282,20 +278,16 @@ const PersonalInfo = () => {
 const ContactForm = () => {
   const {
     register,
-    handleSubmit,
-
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-  });
+  })  
 
-  const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
+  // const [graduation, setGraduation] = useState("");
 
-  const [graduation, setGraduation] = useState("");
-
-  const handleQualification = (event) => {
-    setGraduation(event.target.value);
-  };
+  // const handleQualification = (event) => {
+  //   setGraduation(event.target.value);
+  // };
 
   const { control } = useFormContext();
   return (
@@ -305,8 +297,7 @@ const ContactForm = () => {
           Doctor Details
         </Typography>
         <Grid container spacing={3}>
-
-        <Controller
+          <Controller
             name="qualifiaction"
             id="qualifiaction"
             defaultValue={""}
@@ -315,7 +306,7 @@ const ContactForm = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                   Qualification *
+                    Qualification *
                   </InputLabel>
                   <NativeSelect
                     autoComplete="qualifiaction"
@@ -328,10 +319,10 @@ const ContactForm = () => {
                   >
                     <option value=""></option>
                     <option value={10}>MBBS</option>
-                        <option value={20}>BAMS</option>
-                        <option value={30}>BHMS</option>
-                        <option value={40}>BUMS</option>
-                        <option value={50}>DHMS</option>
+                    <option value={20}>BAMS</option>
+                    <option value={30}>BHMS</option>
+                    <option value={40}>BUMS</option>
+                    <option value={50}>DHMS</option>
                   </NativeSelect>
                 </FormControl>
                 <small className="invalid">
@@ -387,9 +378,7 @@ const ContactForm = () => {
                   </NativeSelect>
                 </FormControl>
                 <small className="invalid">
-                  {errors.selectmcr?.type === "required" && (
-                    <p>Select MCR.</p>
-                  )}
+                  {errors.selectmcr?.type === "required" && <p>Select MCR.</p>}
                 </small>
               </Grid>
             )}
@@ -456,41 +445,49 @@ function getStepContent(step) {
   }
 }
 
-const DoctorRegi = () => {
+const DoctorRegi = (doctor,e) => {
   const classes = useStyles();
+  console.log(doctor.firstName);
   const methods = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      emailid: "",
-      mobilenumber: "",
-      qualification: "",
-      postgraduation: "",
-      selectmcr: "",
-      mcrnumber: "",
+      firstName:doctor.firstName,
+      lastName:doctor.lastName,
+      emailid:doctor.emailid,
+      mobilenumber:doctor.mobilenuber,
+      qualification:doctor.qualification,
+      postgraduation:doctor.postgraduation,
+      selectmcr:doctor.selectmcr,
+      mcrnumber:doctor.mcrnumber,
     },
   });
 
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
-  const isStepOptional = (step) => {
-    return step === 1 || step === 2;
-  };
+  // const isStepOptional = (step) => {
+  //   return step === 1 || step === 2;
+  //  handleNext(methods);
+  // };
+  
+  
 
   const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
 
-  const handleNext = (data) => {
-    console.log(data);
-    if (activeStep == steps.length - 1) {
-      fetch("http://localhost:3000/doctorregi")
-        .then((data) => data.json())
+
+  const handleNext = (doctor) => {
+    console.log(doctor); 
+    
+    if (activeStep === steps.length - 1) {
+      axios.post(`http://localhost:3000/doctorregi`,doctor)
+        //  .then((doctor) => doctor.json())
         .then((res) => {
           console.log(res);
+          console.log(res.data);
           setActiveStep(activeStep + 1);
         });
     } else {
-      setActiveStep(activeStep + 1);
+       setActiveStep(activeStep + 1);
+      // console.log("error");
     }
   };
 
@@ -505,13 +502,12 @@ const DoctorRegi = () => {
         <Paper elevation={20} style={paperStyle}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <form>
+
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
               <Paper
                 variant="outlined"
                 sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
               >
-                
                 <Stepper alternativeLabel activeStep={activeStep}>
                   {steps.map((step, index) => {
                     const labelProps = {};
@@ -546,7 +542,7 @@ const DoctorRegi = () => {
                           className={classes.button}
                           variant="contained"
                           color="primary"
-                          //  onClick={handleNext}
+                            onClick={handleNext}
                           type="submit"
                         >
                           {activeStep === steps.length - 1 ? "Finish" : "Next"}
@@ -558,7 +554,6 @@ const DoctorRegi = () => {
               </Paper>
               <Copyright />
             </Container>
-            </form>
           </ThemeProvider>
         </Paper>
       </div>

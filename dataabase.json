@@ -4,21 +4,21 @@
       "id": 1,
       "mothername": "Gauri",
       "fathername": "Sham",
-      "gender":"Female",
-      "dateandtime":"08/18/2014 09:11 PM",
-      "weight":"4",
-      "apgarscore":"4/5",
-      "delivery":"Naturak Birth",
-      "address":"Pune",
-      "city":"Pune",
-      "state":"Maharashtra",
-      "zipcode":"346745",
-      "country":"India",
-      "hospitalname":"OM SAI HOSPITAL",
-      "doctorname":"raj kale",
-      "phonenumber":"4598673456",
-      "emailid":"gauri@gmail.com",
-      "vaccination":"vaccine1"
+      "gender": "Female",
+      "dateandtime": "08/18/2014 09:11 PM",
+      "weight": "4",
+      "apgarscore": "4/5",
+      "delivery": "Naturak Birth",
+      "address": "Pune",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "zipcode": "346745",
+      "country": "India",
+      "hospitalname": "OM SAI HOSPITAL",
+      "doctorname": "raj kale",
+      "phonenumber": "4598673456",
+      "emailid": "gauri@gmail.com",
+      "vaccination": "vaccine1"
     }
   ],
   "doctorregi": [
@@ -32,6 +32,37 @@
       "postgraduation": "",
       "selectmcr": "NCR",
       "mcrnumber": "3445674556"
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "emailid": "",
+      "mobilenumber": "",
+      "qualification": "",
+      "postgraduation": "",
+      "selectmcr": "",
+      "mcrnumber": "",
+      "id": 2
+    },
+    {
+      "selectmcr": "",
+      "qualifiaction": "",
+      "id": 3
+    },
+    {
+      "selectmcr": "",
+      "qualifiaction": "",
+      "id": 4
+    },
+    {
+      "selectmcr": "",
+      "qualifiaction": "",
+      "id": 5
+    },
+    {
+      "selectmcr": "",
+      "qualifiaction": "",
+      "id": 6
     }
   ],
   "patientregi": [
@@ -45,20 +76,19 @@
       "mobilenumber": "98457687",
       "aadharnumber": "938573957314",
       "maritalstatus": "Married",
-      "height":"5",
-      "weight":"55",
-      "desease":"-",
-      "edd":"12/19/2022",
-      "howmanychildren":"1",
-      "currentmonth":"4th",
-      "address":"Pune",
-      "city":"Pune",
-      "state":"Maharashtra",
-      "postalcode":"5667348",
-      "country":"India"
+      "height": "5",
+      "weight": "55",
+      "desease": "-",
+      "edd": "12/19/2022",
+      "howmanychildren": "1",
+      "currentmonth": "4th",
+      "address": "Pune",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postalcode": "5667348",
+      "country": "India"
     }
   ],
-
   "comments": [
     {
       "id": 1,
@@ -69,4 +99,4 @@
   "profile": {
     "name": "typicode"
   }
-} 
+}
