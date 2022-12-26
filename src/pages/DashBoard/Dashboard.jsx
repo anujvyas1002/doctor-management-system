@@ -63,7 +63,7 @@ export default function Dashboard() {
                 <Grid container spacing={4}>
                   <Grid item xs={6}>
                     <Button className={classes.button} sx={{ marginTop: "25px" }} variant="contained" onClick={handlePatientRegi} target='_blank'>
-                      Register Pregnancy{" "}
+                      New Pregnancy Registration{" "}
                     </Button>
                     <div>
                 </div>
@@ -71,7 +71,7 @@ export default function Dashboard() {
 
                   <Grid item xs={6}>
                     <Button className={classes.button} sx={{ marginTop: "25px" }} variant="contained" onClick={handleNewBornRegi}>
-                      Register New Born{" "}
+                     Birth Registration{" "}
                     </Button>
                   </Grid>
                 </Grid>
@@ -79,13 +79,13 @@ export default function Dashboard() {
                 <Grid container spacing={4}>
                   <Grid item xs={6}>
                   <Button className={classes.button} sx={{ marginTop: "25px" }} variant="contained" onClick={handlePregnancyHistory}>
-                      Pregnancy History{" "}
+                    View Pregnancy Registrations{" "}
                     </Button>
                   </Grid>
 
                   <Grid item xs={6}>
                     <Button className={classes.button} sx={{ marginTop: "25px" }} variant="contained" onClick={handleNewBornHistory}>
-                      New Born History{" "}
+                     View Birth Registrations{" "}
                     </Button>
                   </Grid>
                 </Grid>

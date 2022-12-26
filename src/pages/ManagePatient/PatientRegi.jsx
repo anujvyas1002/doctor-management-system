@@ -170,6 +170,7 @@ const PersonalInfo = () => {
                   {errors.lastname?.type === "required" && (
                     <p>Last name is required.</p>
                   )}
+
                 </small>
                 <small className="invalid">
                   {errors.lastname?.type === "minLength" && (
@@ -766,15 +767,15 @@ const PatientDetail = () => {
                       <option value="">
                         <em>Country</em>
                       </option>
-                      <option value={10}>Country1</option>
-                      <option value={20}>Country2</option>
-                      <option value={30}>Country3</option>
-                      <option value={40}>Country4</option>
-                      <option value={50}>Country5</option>
-                      <option value={60}>Country6</option>
-                      <option value={70}>Country7</option>
-                      <option value={80}>Country8</option>
-                      <option value={90}>Country9</option>
+                      <option value="Country1">Country1</option>
+                      <option value="Country2">Country2</option>
+                      <option value="Country3">Country3</option>
+                      <option value="Country4">Country4</option>
+                      <option value="Country5">Country5</option>
+                      <option value="Country6">Country6</option>
+                      <option value="Country7">Country7</option>
+                      <option value="Country8">Country8</option>
+                      <option value="Country9">Country9</option>
                     </NativeSelect>
                   </FormControl>
                   <small className="invalid">
@@ -808,13 +809,23 @@ function getStepContent(step) {
 const PatientRegi = () => {
   const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
 
+  function formatDate(timestamp) {
+    let x = new Date(timestamp);
+    let DD = x.getDate();
+    let MM = x.getMonth() + 1;
+    let YYYY = x.getFullYear();
+    return YYYY + "/" + MM + "/" + DD;
+  }
+  
+      const [selectedDate, setSelectedDate] = React.useState();
+
   // const classes = useStyles();
   const methods = useForm({
     defaultValues: {
       firstname: "",
       middlename: "",
       lastname: "",
-      dateofbirth: "",
+      dateofbirth: formatDate(selectedDate),
       emailId: "",
       mobilenumber: "",
       aadharnumber: "",
@@ -886,8 +897,8 @@ const PatientRegi = () => {
                 </Stepper>
 
                 {activeStep === steps.length ? (
-                  <Typography variant="h4" align="center">
-                    Thank You
+                  <Typography variant="h6" align="center">
+                    Pregnancy Registration Successful. Detailed Calender link shared with Mother.
                   </Typography>
                 ) : (
                   <>

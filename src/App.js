@@ -13,6 +13,7 @@ import PregnancyHistory from './pages/ManagePatient/PregnancyHistory';
 import AboutUs from './pages/DashBoard/AboutUs';
 import Report from './pages/DashBoard/Report';
 import ContactUs from './pages/DashBoard/ContactUs';
+import LinaerStepper from './pages/ManageNewBorn/BabyRegi';
 
 // import { CssBaseline, Container, Paper, Box } from "@material-ui/core";
 
@@ -26,7 +27,7 @@ function App() {
       <Routes>    
       <Route path="/" element={<Header/>} />
    <Route path="/DoctorRegi" element={<DoctorRegi />} />
-   <Route path="/BabyRegi" element={<BabyRegi />} />
+   <Route path="/BabyRegi" element={<LinaerStepper/>} />
    <Route path="/DoctorLogin" element={<DoctorLogin/>} />
    <Route path="/Dashboard" element={<Dashboard/>} />
    <Route path="/PatientRegi" element={<PatientRegi/>} />

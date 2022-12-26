@@ -533,8 +533,8 @@ const DoctorRegi = (e) => {
                 </Stepper>
 
                 {activeStep === steps.length ? (
-                  <Typography variant="h3" align="center">
-                    Thank You
+                  <Typography variant="h6" align="center">
+                   Your Registration is Successful. Your Login Credentials Shared with you on xxx@gmail.com
                   </Typography>
                 ) : (
                   <>
