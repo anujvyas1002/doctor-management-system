@@ -158,7 +158,6 @@ const BabyInfo = () => {
           render={({ field }) => (
             <Grid item xs={6}>
               <RadioGroup
-                required
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
@@ -195,8 +194,8 @@ const BabyInfo = () => {
 
         <Controller
           control={control}
-          required
           name="dateandtime"
+          rules={{ required: "Birth date is required." }}
           render={({ field }) => (
             <Grid item xs={12} sm={6}>
               <div className="form-group">
@@ -322,6 +321,8 @@ const BabyInfo = () => {
                     id: "uncontrolled-native",
                   }}
                   {...field}
+                  error={Boolean(errors?.delivery)}
+                  helperText={errors.delivery?.message}
                 >
                   <option value=""></option>
                   <option value="Natural Birth">Natural Birth</option>
@@ -342,7 +343,6 @@ const BabyInfo = () => {
 };
 const BabyDetails = () => {
   const {
-
     formState: { errors },
   } = useFormContext({
     mode: "onTouched",
@@ -442,7 +442,6 @@ const BabyDetails = () => {
       </Grid>
 
       <Grid container spacing={3}>
-   
         <Controller
           control={control}
           name="postalcode"
@@ -455,7 +454,6 @@ const BabyDetails = () => {
           render={({ field }) => (
             <Grid item xs={12} sm={6}>
               <TextField
-                required
                 id="postalcode"
                 label="Zip / Postal code"
                 fullWidth
@@ -494,7 +492,6 @@ const BabyDetails = () => {
           render={({ field }) => (
             <Grid item xs={12} sm={6}>
               <TextField
-                required
                 id="country"
                 name="country"
                 label="Country"
@@ -553,7 +550,6 @@ const BabyDetails = () => {
           render={({ field }) => (
             <Grid item xs={12} md={6}>
               <TextField
-                required
                 id="doctorname"
                 label="Doctor Name"
                 fullWidth
@@ -589,7 +585,6 @@ const BabyDetails = () => {
           render={({ field }) => (
             <Grid item xs={12} md={6}>
               <TextField
-                required
                 id="mobilenumber"
                 label="Mobile Number"
                 fullWidth
@@ -653,14 +648,11 @@ const BabyDetails = () => {
           )}
         />
       </Grid>
-
-     
     </Container>
   );
 };
 const Report = () => {
   const {
-
     formState: { errors },
   } = useFormContext({
     mode: "onTouched",
@@ -671,45 +663,44 @@ const Report = () => {
 
   return (
     <>
-        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-      <Typography component="h1" variant="h4" align="center">
-        NewBorn Registration
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        NewBorn Details
-      </Typography>
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Typography component="h1" variant="h4" align="center">
+          NewBorn Registration
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          NewBorn Details
+        </Typography>
 
-    <Grid container spacing={3}>
-        <Controller
-          control={control}
-          name="vaccination"
-          rules={{ required: "State is required.", minLength: 2 }}
-          render={({ field }) => (
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="vaccination"
-                name="vaccination"
-                label="Vaccination"
-                fullWidth
-                autoComplete="vaccination"
-                variant="standard"
-                {...field}
-              />
-              <small className="invalid">
-                {errors.vaccination?.type === "required" && (
-                  <p>Vaccination is required.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.vaccination?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
-                )}
-              </small>
-            </Grid>
-          )}
-        />
-      </Grid>
+        <Grid container spacing={3}>
+          <Controller
+            control={control}
+            name="vaccination"
+            rules={{ required: "State is required.", minLength: 2 }}
+            render={({ field }) => (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="vaccination"
+                  name="vaccination"
+                  label="Vaccination"
+                  fullWidth
+                  autoComplete="vaccination"
+                  variant="standard"
+                  {...field}
+                />
+                <small className="invalid">
+                  {errors.vaccination?.type === "required" && (
+                    <p>Vaccination is required.</p>
+                  )}
+                </small>
+                <small className="invalid">
+                  {errors.vaccination?.type === "minLength" && (
+                    <p>Please enter minimun 2 char.</p>
+                  )}
+                </small>
+              </Grid>
+            )}
+          />
+        </Grid>
       </Container>
     </>
   );
@@ -742,7 +733,7 @@ const DoctorRegi = () => {
       address: "",
       city: "",
       state: "",
-      postalcode:"",
+      postalcode: "",
       country: "",
       hospitalname: "",
       doctorname: "",

@@ -3,9 +3,7 @@ import Paper from "@mui/material/Paper";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Header from "../../components/NavBar/Header";
-import Report from "../ManageNewBorn/Report";
 import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Footer from "../../components/Footer/Footer";
@@ -30,7 +28,6 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
-
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -38,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Basic information", "Doctor Information", "Report"];
+  return ["Basic Information", "Doctor Details"];
 }
 
 function Copyright() {
@@ -54,15 +51,15 @@ function Copyright() {
   );
 }
 
-const theme = createTheme();
-
 const PersonalInfo = () => {
   const {
     register,
+
     formState: { errors },
-  } = useForm({
+  } = useFormContext({
     mode: "onTouched",
   });
+  console.log(errors);
 
   const { control } = useFormContext();
   return (
@@ -78,28 +75,21 @@ const PersonalInfo = () => {
         <Grid container spacing={3}>
           <Controller
             control={control}
-            name="firstName"
+            name="firstname"
+            rules={{ required: "First name is required.", minLength: 2 }}
             render={({ field }) => (
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
-                  id="firstName"
+                  id="firstname"
                   label="First name"
                   fullWidth
                   autoComplete="given-name"
                   variant="standard"
-                  {...register("firstname", {
-                    required: true,
-                    minLength: 2,
-                    
-                  })}
                   {...field}
+                  error={Boolean(errors?.firstname)}
+                  helperText={errors.firstname?.message}
                 />
-                <small className="invalid">
-                  {errors.firstname?.type === "required" && (
-                    <p>First name is required.</p>
-                  )}
-                </small>
+
                 <small className="invalid">
                   {errors.firstname?.type === "minLength" && (
                     <p>Please enter minimun 2 char.</p>
@@ -111,30 +101,23 @@ const PersonalInfo = () => {
 
           <Controller
             control={control}
-            name="lastName"
+            name="lastname"
+            rules={{ required: "Last name is required.", minLength: 2 }}
             render={({ field }) => (
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
-                  id="lastName"
-                  name="lastName"
+                  id="lastname"
+                  name="lastname"
                   label="Last name"
                   fullWidth
                   autoComplete="family-name"
                   variant="standard"
-                  {...register("lastname", {
-                    required: true,
-                    minLength: 2,
-                  })}
                   {...field}
+                  error={Boolean(errors?.lastname)}
+                  helperText={errors.lastname?.message}
                 />
                 <small className="invalid">
-                  {errors.lastname?.type === "required" && (
-                    <p>Last name is required.</p>
-                  )}
-                </small>
-                <small className="invalid">
-                  {errors.lastname?.type === "minlength" && (
+                  {errors.lastname?.type === "minLength" && (
                     <p>Please enter minimum 2 char.</p>
                   )}
                 </small>
@@ -147,27 +130,24 @@ const PersonalInfo = () => {
           <Controller
             control={control}
             name="emailid"
+            rules={{
+              required: "Email Id is required.",
+              pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
+              minLength: 2,
+            }}
             render={({ field }) => (
               <Grid item xs={12} md={6}>
                 <TextField
-                  required
-                  id="emailId"
+                  id="emailid"
                   label="Email Id"
                   fullWidth
                   autoComplete="emailId"
                   variant="standard"
-                  {...register("emailid", {
-                    required: true,
-                    pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
-                    minLength: 2,
-                  })}
                   {...field}
+                  error={Boolean(errors?.emailid)}
+                  helperText={errors.emailid?.message}
                 />
-                <small className="invalid">
-                  {errors.emailid?.type === "required" && (
-                    <p>Email id is required.</p>
-                  )}
-                </small>
+
                 <small className="invalid">
                   {errors.emailid?.type === "pattern" && (
                     <p>Invalid Email Id.</p>
@@ -188,7 +168,6 @@ const PersonalInfo = () => {
             render={({ field }) => (
               <Grid item xs={12} md={6}>
                 <TextField
-                  required
                   id="mobilenumber"
                   label="Mobile Number"
                   fullWidth
@@ -234,7 +213,6 @@ const PersonalInfo = () => {
           render={({ field }) => (
             <Grid item xs={12} md={6} style={{ marginBottom: "15px" }}>
               <TextField
-                required
                 id="password"
                 label="password"
                 fullWidth
@@ -280,20 +258,14 @@ const PersonalInfo = () => {
     </div>
   );
 };
-
 const ContactForm = () => {
   const {
     register,
     formState: { errors },
-  } = useForm({
+  } = useFormContext({
     mode: "onTouched",
-  })  
-
-  // const [graduation, setGraduation] = useState("");
-
-  // const handleQualification = (event) => {
-  //   setGraduation(event.target.value);
-  // };
+  });
+  console.log(errors);
 
   const { control } = useFormContext();
   return (
@@ -316,13 +288,15 @@ const ContactForm = () => {
                   </InputLabel>
                   <NativeSelect
                     autoComplete="qualification"
-                    required
                     defaultValue=" "
                     inputProps={{
                       name: "qualification",
                       id: "uncontrolled-native",
                     }}
                     {...field}
+                    {...register("qualification", {
+                      required: true,
+                    })}
                   >
                     <option value=""></option>
                     <option value="MBBS">MBBS</option>
@@ -331,7 +305,6 @@ const ContactForm = () => {
                     <option value="BUMS">BUMS</option>
                     <option value="DHMS">DHMS</option>
                   </NativeSelect>
-                  
                 </FormControl>
                 <small className="invalid">
                   {errors.qualification?.type === "required" && (
@@ -354,10 +327,17 @@ const ContactForm = () => {
                   autoComplete="PostGraduation"
                   variant="standard"
                   {...field}
+                  {...register("postgraduation", {
+                    minLength: 2,
+                  })}
                 />
+                <small className="invalid">
+                  {errors.postgraduation?.type === "minLength" && (
+                    <p>Please write correct Post Graduation</p>
+                  )}
+                </small>
               </Grid>
             )}
-            
           />
         </Grid>
 
@@ -375,13 +355,15 @@ const ContactForm = () => {
                   </InputLabel>
                   <NativeSelect
                     autoComplete="Select mcr"
-                    required
                     defaultValue=" "
                     inputProps={{
                       name: "selectmcr",
                       id: "uncontrolled-native",
                     }}
                     {...field}
+                    {...register("selectmcr", {
+                      required: true,
+                    })}
                   >
                     <option value=""></option>
                     <option value="NMC Number">NMC Number</option>
@@ -389,7 +371,9 @@ const ContactForm = () => {
                   </NativeSelect>
                 </FormControl>
                 <small className="invalid">
-                  {errors.selectmcr?.type === "required" && <p>Select MCR, It's required</p>}
+                  {errors.selectmcr?.type === "required" && (
+                    <p>Select MCR, It's required</p>
+                  )}
                 </small>
               </Grid>
             )}
@@ -403,7 +387,6 @@ const ContactForm = () => {
                 <TextField
                   id="mcrnumber"
                   label="MCR Number"
-                  required
                   fullWidth
                   autoComplete="mcrnumber"
                   variant="standard"
@@ -450,55 +433,47 @@ function getStepContent(step) {
       return <PersonalInfo />;
     case 1:
       return <ContactForm />;
-    case 2:
-      return <Report />;
     default:
       return "unknown step";
   }
 }
 
-const DoctorRegi = (e) => {
+const DoctorRegi = () => {
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
-      firstName:"",
-      lastName:"",
-      emailid:"",
-      mobilenumber:"",
-      password:"",
-      qualification:"",
-      postgraduation:"",
-      selectmcr:"",
-      mcrnumber:"",
+      mothername: "",
+      fathername: "",
+      gender: "",
+      dateandtime: "",
+      weight: "",
+      apgarscore: "",
+      delivery: "",
+      address: "",
+      city: "",
+      state: "",
+      postalcode: "",
+      country: "",
+      hospitalname: "",
+      doctorname: "",
+      phonenumber: "",
+      emailid: "",
+      vaccination: "",
     },
   });
-
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
-  // const isStepOptional = (step) => {
-  //   return step === 1 || step === 2;
-  //  handleNext(methods);
-  // };
-  
-  
-
-  const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
-
-
-  const handleNext = (doctor) => {
-    console.log(doctor); 
+  const handleNext = (docregi) => {
+    console.log(docregi);
     if (activeStep === steps.length - 1) {
-     axios.post(`http://localhost:3000/doctorregi`,doctor)
-      // .then((doctor) => doctor.json())
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          setActiveStep(activeStep + 1);
-        });
+      axios.post("http://localhost:3000/DoctorRegi", docregi).then((res) => {
+        console.log(res);
+        console.log(docregi);
+        setActiveStep(activeStep + 1);
+      });
     } else {
-       setActiveStep(activeStep + 1);
-      // console.log("error");
+      setActiveStep(activeStep + 1);
     }
   };
 
@@ -506,66 +481,67 @@ const DoctorRegi = (e) => {
     setActiveStep(activeStep - 1);
   };
 
+  const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
+
   return (
     <>
       <Header />
       <div style={{ marginTop: "10vh", marginBottom: "10vh" }}>
         <Paper elevation={20} style={paperStyle}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
+          <CssBaseline />
 
-            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-              <Paper
-                variant="outlined"
-                sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
-              >
-                <Stepper alternativeLabel activeStep={activeStep}>
-                  {steps.map((step, index) => {
-                    const labelProps = {};
-                    const stepProps = {};
+          <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+            <Paper
+              variant="outlined"
+              sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 2 } }}
+            >
+              <Stepper alternativeLabel activeStep={activeStep}>
+                {steps.map((step, index) => {
+                  const labelProps = {};
+                  const stepProps = {};
 
-                    return (
-                      <Step {...stepProps} key={index}>
-                        <StepLabel {...labelProps}>{step}</StepLabel>
-                      </Step>
-                    );
-                  })}
-                </Stepper>
+                  return (
+                    <Step {...stepProps} key={index}>
+                      <StepLabel {...labelProps}>{step}</StepLabel>
+                    </Step>
+                  );
+                })}
+              </Stepper>
 
-                {activeStep === steps.length ? (
-                  <Typography variant="h6" align="center">
-                   Your Registration is Successful. Your Login Credentials Shared with you on xxx@gmail.com
-                  </Typography>
-                ) : (
-                  <>
-                    <FormProvider {...methods}>
-                      <form onSubmit={methods.handleSubmit(handleNext)}>
-                        {getStepContent(activeStep)}
+              {activeStep === steps.length ? (
+                <Typography variant="h6" align="center">
+                  Doctor Registration is Successful.
+                </Typography>
+              ) : (
+                <>
+                  <FormProvider {...methods}>
+                    <form onSubmit={methods.handleSubmit(handleNext)}>
+                      {getStepContent(activeStep)}
 
-                        <Button
-                          disabled={activeStep === 0}
-                          onClick={handleBack}
-                        >
-                          back
-                        </Button>
+                      <Button
+                        // className={classes.button}
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                      >
+                        back
+                      </Button>
 
-                        <Button
-                          className={classes.button}
-                          variant="contained"
-                          color="primary"
-                            // onClick={handleNext}
-                          type="submit"
-                        >
-                          {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                        </Button>
-                      </form>
-                    </FormProvider>
-                  </>
-                )}
-              </Paper>
-              <Copyright />
-            </Container>
-          </ThemeProvider>
+                      <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        //  onClick={handleNext}
+                        type="submit"
+                      >
+                        {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      </Button>
+                    </form>
+                  </FormProvider>
+                </>
+              )}
+            </Paper>
+            <Copyright />
+          </Container>
         </Paper>
       </div>
       <Footer />

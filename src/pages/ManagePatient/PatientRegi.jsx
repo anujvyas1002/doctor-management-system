@@ -57,7 +57,6 @@ function Copyright() {
 }
 
 const PersonalInfo = () => {
-
   const {
     register,
 
@@ -67,22 +66,20 @@ const PersonalInfo = () => {
   });
   console.log(errors);
 
-
-
   const { control } = useFormContext();
   const [selectedDate, setSelectedDate] = React.useState();
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Typography component="h1" variant="h4" align="center">
-          Patient Registration
-        </Typography>
+        Patient Registration
+      </Typography>
 
-        <Typography variant="h6" gutterBottom>
-          Personal Information
-        </Typography>
-        <Grid container spacing={3}>
-          <Controller
+      <Typography variant="h6" gutterBottom>
+        Personal Information
+      </Typography>
+      <Grid container spacing={3}>
+        <Controller
           control={control}
           name="firstname"
           rules={{ required: "First name is required.", minLength: 2 }}
@@ -136,146 +133,143 @@ const PersonalInfo = () => {
       </Grid>
 
       <Grid container spacing={3}>
-          <Controller
-            control={control}
-            name="lastname"
-            rules={{ required: "Middle name is required.", minLength: 2 }}
-            render={({ field }) => (
-              <Grid item xs={12} sm={6}>
-                <TextField
-                 
-                  id="lastname"
-                  label="Last name"
-                  fullWidth
-                  autoComplete="last-name"
-                  variant="standard"
-                  {...field}
-                  error={Boolean(errors?.lastname)}
-                  helperText={errors.lastname?.message}
-                />
-           
-                <small className="invalid">
-                  {errors.lastname?.type === "minLength" && (
-                    <p>Please enter minimun 2 char.</p>
-                  )}
-                </small>
-              </Grid>
-            )}
-          />
+        <Controller
+          control={control}
+          name="lastname"
+          rules={{ required: "Last name is required.", minLength: 2 }}
+          render={({ field }) => (
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="lastname"
+                label="Last name"
+                fullWidth
+                autoComplete="last-name"
+                variant="standard"
+                {...field}
+                error={Boolean(errors?.lastname)}
+                helperText={errors.lastname?.message}
+              />
 
-          <Controller
-            control={control}
-            name="dateofbirth"
-            rules={{ required: "Date of birth is required.", minLength: 2 }}
-            render={({ field }) => (
-              <Grid item xs={12} sm={6}>
-                <div className="form-group">
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Stack spacing={3}>
-                      <DesktopDatePicker
-                        onChange={(newValue) => {
-                          console.log(newValue);
-                          setSelectedDate(newValue);
-                        }}
-                        label="Birth Date *"
-                        value={selectedDate}
-                        maxDate={new Date()}
-                        renderInput={(params) => <TextField {...params} />}
-                        {...field}
+              <small className="invalid">
+                {errors.lastname?.type === "minLength" && (
+                  <p>Please enter minimun 2 char.</p>
+                )}
+              </small>
+            </Grid>
+          )}
+        />
 
-                  error={Boolean(errors?.dateofbirth)}
-                  helperText={errors.dateofbirth?.message}
-                      />
-                    </Stack>
-                  </LocalizationProvider>
+        <Controller
+          control={control}
+          name="dateofbirth"
+          rules={{ required: "Date of birth is required.", minLength: 2 }}
+          render={({ field }) => (
+            <Grid item xs={12} sm={6}>
+              <div className="form-group">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <Stack spacing={3}>
+                    <DesktopDatePicker
+                      onChange={(newValue) => {
+                        console.log(newValue);
+                        setSelectedDate(newValue);
+                      }}
+                      label="Birth Date *"
+                      value={selectedDate}
+                      maxDate={new Date()}
+                      renderInput={(params) => <TextField {...params} />}
+                      {...field}
+                      error={Boolean(errors?.dateofbirth)}
+                      helperText={errors.dateofbirth?.message}
+                    />
+                  </Stack>
+                </LocalizationProvider>
 
-                  {errors.dateofbirth && (
-                    <span className="text-danger">
-                      {" "}
-                      {errors.dateofbirth.message}
-                    </span>
+                {errors.dateofbirth && (
+                  <span className="text-danger">
+                    {" "}
+                    {errors.dateofbirth.message}
+                  </span>
+                )}
+              </div>
+            </Grid>
+          )}
+        />
+      </Grid>
 
-                  )}
-                </div>
-              </Grid>
-            )}
-      
-          />
-        </Grid>
+      <Grid container spacing={3}>
+        <Controller
+          control={control}
+          name="emailid"
+          rules={{
+            required: "Email Id is required.",
+            pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
+            minLength: 2,
+          }}
+          render={({ field }) => (
+            <Grid item xs={12} md={6}>
+              <TextField
+                id="emailid"
+                label="Email Id"
+                fullWidth
+                autoComplete="emailId"
+                variant="standard"
+                {...field}
+                error={Boolean(errors?.emailid)}
+                helperText={errors.emailid?.message}
+              />
 
-        <Grid container spacing={3}>
-          <Controller
-            control={control}
-            name="emailid"
-            rules={{ required: "Email Id is required.",   pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
-            minLength: 2,}}
-            render={({ field }) => (
-              <Grid item xs={12} md={6}>
-                <TextField
-                  id="emailid"
-                  label="Email Id"
-                  fullWidth
-                  autoComplete="emailId"
-                  variant="standard"
-              
-                  {...field}
-                  error={Boolean(errors?.emailid)}
-                  helperText={errors.emailid?.message}
-                />
-
-                <small className="invalid">
-                  {errors.emailid?.type === "pattern" && (
-                    <p>Invalid Email Id.</p>
-                  )}
-                </small>
-                <small className="invalid">
-                  {errors.emailid?.type === "minLength" && (
-                    <p>Please enter minimun 2 char.</p>
-                  )}
-                </small>
-              </Grid>
-            )}
-          />
-          <Controller
-            control={control}
-            name="mobilenumber"
-            rules={{ required: "Mobile Number is required.",   pattern: /^([2-9])(?!\1+$)\d{9}$/,
+              <small className="invalid">
+                {errors.emailid?.type === "pattern" && <p>Invalid Email Id.</p>}
+              </small>
+              <small className="invalid">
+                {errors.emailid?.type === "minLength" && (
+                  <p>Please enter minimun 2 char.</p>
+                )}
+              </small>
+            </Grid>
+          )}
+        />
+        <Controller
+          control={control}
+          name="mobilenumber"
+          rules={{
+            required: "Mobile Number is required.",
+            pattern: /^([2-9])(?!\1+$)\d{9}$/,
             minLength: 10,
-            maxLength: 10,}}
-            render={({ field }) => (
-              <Grid item xs={12} md={6}>
-                <TextField
-                 
-                  id="mobilenumber"
-                  label="Mobile Number"
-                  fullWidth
-                  autoComplete="Mobile Number"
-                  variant="standard"
-                 
-                  {...field}
-                  error={Boolean(errors?.mobilenumber)}
-                  helperText={errors.mobilenumber?.message}
-                />
+            maxLength: 10,
+          }}
+          render={({ field }) => (
+            <Grid item xs={12} md={6}>
+              <TextField
+                id="mobilenumber"
+                label="Mobile Number"
+                fullWidth
+                autoComplete="Mobile Number"
+                variant="standard"
+                {...field}
+                error={Boolean(errors?.mobilenumber)}
+                helperText={errors.mobilenumber?.message}
+              />
 
-                <small className="invalid">
-                  {errors.mobilenumber?.type === "pattern" && (
-                    <p>Invalid Mobile number.</p>
-                  )}
-                </small>
-                <small className="invalid">
-                  {errors.mobilenumber?.type === "minLength" && (
-                    <p>Please enter 10 digits of mobile number.</p>
-                  )}
-                </small>
-                <small className="invalid">
-                  {errors.mobilenumber?.type === "maxLength" && (
-                    <p>Mobile number should have 10 digits only.</p>
-                  )}
-                </small>
-              </Grid>
-            )}
-          />
-        </Grid>
+              <small className="invalid">
+                {errors.mobilenumber?.type === "pattern" && (
+                  <p>Invalid Mobile number.</p>
+                )}
+              </small>
+              <small className="invalid">
+                {errors.mobilenumber?.type === "minLength" && (
+                  <p>Please enter 10 digits of mobile number.</p>
+                )}
+              </small>
+              <small className="invalid">
+                {errors.mobilenumber?.type === "maxLength" && (
+                  <p>Mobile number should have 10 digits only.</p>
+                )}
+              </small>
+            </Grid>
+          )}
+        />
+      </Grid>
 
       <Grid container spacing={3}>
         <Controller
@@ -296,7 +290,6 @@ const PersonalInfo = () => {
                     id: "uncontrolled-native",
                   }}
                   {...field}
-
                   error={Boolean(errors?.delivery)}
                   helperText={errors.delivery?.message}
                 >
@@ -304,9 +297,12 @@ const PersonalInfo = () => {
                   <option value="Natural Birth">Natural Birth</option>
                   <option value="Vaginal Birth">Vaginal Birth</option>
                 </NativeSelect>
-            
               </FormControl>
-            
+              <small className="invalid">
+                {errors.delivery?.type === "required" && (
+                  <p>Please select delivery type.</p>
+                )}
+              </small>
             </Grid>
           )}
         />
@@ -316,6 +312,7 @@ const PersonalInfo = () => {
 };
 const PatientDetail = () => {
   const {
+    register,
 
     formState: { errors },
   } = useFormContext({
@@ -325,136 +322,41 @@ const PatientDetail = () => {
 
   const { control } = useFormContext();
 
+  const [selectedDate, setSelectedDate] = React.useState();
+
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-      <Typography component="h1" variant="h4" align="center">
-        NewBorn Registration
-      </Typography>
       <Typography variant="h6" gutterBottom>
-        NewBorn Details
+        Patient Details
       </Typography>
-
       <Grid container spacing={3}>
         <Controller
           control={control}
-          name="address"
-          rules={{ required: "Address is required.", minLength: 2 }}
-          render={({ field }) => (
-            <Grid item xs={12}>
-              <TextField
-                id="address"
-                label="Address"
-                variant="standard"
-                placeholder="Enter Your Address"
-                fullWidth
-                margin="normal"
-                {...field}
-                error={Boolean(errors?.address)}
-                helperText={errors.address?.message}
-              />
-              <small className="invalid">
-                {errors.address?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
-                )}
-              </small>
-            </Grid>
-          )}
-        />
-      </Grid>
-
-      <Grid container spacing={3}>
-        <Controller
-          control={control}
-          name="city"
-          rules={{ required: "city is required.", minLength: 2 }}
-          render={({ field }) => (
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="city"
-                label="City Name"
-                variant="standard"
-                placeholder="Enter Your City Name"
-                fullWidth
-                margin="normal"
-                {...field}
-                error={Boolean(errors?.city)}
-                helperText={errors.city?.message}
-              />
-              <small className="invalid">
-                {errors.city?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
-                )}
-              </small>
-            </Grid>
-          )}
-        />
-        <Controller
-          control={control}
-          name="state"
-          rules={{ required: "State is required.", minLength: 2 }}
-          render={({ field }) => (
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="state"
-                label="State Name"
-                variant="standard"
-                placeholder="Enter Your state Name"
-                fullWidth
-                margin="normal"
-                {...field}
-                error={Boolean(errors?.state)}
-                helperText={errors.state?.message}
-              />
-              <small className="invalid">
-                {errors.state?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
-                )}
-              </small>
-            </Grid>
-          )}
-        />
-      </Grid>
-
-      <Grid container spacing={3}>
-   
-        <Controller
-          control={control}
-          name="postalcode"
+          name="height"
           rules={{
-            required: "Postal code is required.",
-            pattern: /^([1-9])(?!\1+$)\d{5}$/,
-            minLength: 6,
-            maxLength: 6,
+            required: "Height is required.",
+            pattern: "^d{0,1}0[1-9]|1[0-2]$",
+            maxLength: 5,
           }}
           render={({ field }) => (
             <Grid item xs={12} sm={6}>
               <TextField
-                required
-                id="postalcode"
-                label="Zip / Postal code"
-                fullWidth
-                autoComplete="postalcode"
+                id="height"
+                label="Height"
                 variant="standard"
+                placeholder="Enter Your Height"
+                fullWidth
+                margin="normal"
                 {...field}
+                error={Boolean(errors?.height)}
+                helperText={errors.height?.message}
               />
               <small className="invalid">
-                {errors.postalcode?.type === "required" && (
-                  <p>Postal code is required.</p>
-                )}
+                {errors.height?.type === "pattern" && <p>Invalid Height.</p>}
               </small>
               <small className="invalid">
-                {errors.postalcode?.type === "pattern" && (
-                  <p>Invalid Postal code.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.postalcode?.type === "minLength" && (
-                  <p>Please enter 6 digits of postal code.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.postalcode?.type === "maxLength" && (
-                  <p>Postal code should have 6 digits only.</p>
+                {errors.height?.type === "maxLength" && (
+                  <p>Height is invalid.</p>
                 )}
               </small>
             </Grid>
@@ -463,28 +365,37 @@ const PatientDetail = () => {
 
         <Controller
           control={control}
-          name="country"
-          rules={{ required: "State is required.", minLength: 2 }}
+          name="weight"
+          rules={{
+            required: "Weight is required.",
+            pattern: "^(0|[1-9]d*)(,d+)?$",
+            minLength: 1,
+            maxLength: 3,
+          }}
           render={({ field }) => (
             <Grid item xs={12} sm={6}>
               <TextField
-                required
-                id="country"
-                name="country"
-                label="Country"
-                fullWidth
-                autoComplete="country"
+                id="weight"
+                label="Weight"
                 variant="standard"
+                placeholder="Enter Your Weight"
+                fullWidth
+                margin="normal"
                 {...field}
+                error={Boolean(errors?.weight)}
+                helperText={errors.weight?.message}
               />
               <small className="invalid">
-                {errors.country?.type === "required" && (
-                  <p>Country is required.</p>
+                {errors.weight?.type === "pattern" && <p>Invalid weight.</p>}
+              </small>
+              <small className="invalid">
+                {errors.weight?.type === "minLength" && (
+                  <p>Please enter valid weight.</p>
                 )}
               </small>
               <small className="invalid">
-                {errors.country?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
+                {errors.weight?.type === "maxLength" && (
+                  <p>weight should be valid.</p>
                 )}
               </small>
             </Grid>
@@ -495,56 +406,54 @@ const PatientDetail = () => {
       <Grid container spacing={3}>
         <Controller
           control={control}
-          name="hospitalname"
-          rules={{ required: "Hospital name is required.", minLength: 2 }}
+          name="desease"
+          rules={{ minLength: 2 }}
           render={({ field }) => (
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
-                id="hospitalname"
-                label="Hospital Name"
+                id="desease"
+                label="Desease"
                 fullWidth
-                autoComplete="hospitalname"
+                autoComplete="desease"
                 variant="standard"
                 {...field}
+                error={Boolean(errors?.desease)}
+                helperText={errors.desease?.message}
               />
+
               <small className="invalid">
-                {errors.hospitalname?.type === "required" && (
-                  <p>Hospital Name is required.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.hospitalname?.type === "minLength" && (
+                {errors.desease?.type === "minLength" && (
                   <p>Please enter minimun 2 char.</p>
                 )}
               </small>
             </Grid>
           )}
         />
+
         <Controller
           control={control}
-          name="doctorname"
-          rules={{ required: "Doctor name is required.", minLength: 2 }}
+          name="edd"
+          rules={{ minLength: "EDD is Required" }}
           render={({ field }) => (
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="doctorname"
-                label="Doctor Name"
-                fullWidth
-                autoComplete="doctorname"
-                variant="standard"
-                {...field}
-              />
-              <small className="invalid">
-                {errors.doctorname?.type === "required" && (
-                  <p>Doctor Name is required.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.doctorname?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
-                )}
-              </small>
+            <Grid item xs={12} sm={6}>
+              <div className="form-group">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <Stack spacing={3}>
+                    <DesktopDatePicker
+                      onChange={(newValue) => {
+                        console.log(newValue);
+                        setSelectedDate(newValue);
+                      }}
+                      label="Estimated Due Date *"
+                      value={selectedDate}
+                      renderInput={(params) => <TextField {...params} />}
+                      {...field}
+                      error={Boolean(errors?.dateofbirth)}
+                      helperText={errors.dateofbirth?.message}
+                    />
+                  </Stack>
+                </LocalizationProvider>
+              </div>
             </Grid>
           )}
         />
@@ -553,43 +462,23 @@ const PatientDetail = () => {
       <Grid container spacing={3}>
         <Controller
           control={control}
-          name="mobilenumber"
-          rules={{
-            required: "State is required.",
-            pattern: /^([2-9])(?!\1+$)\d{9}$/,
-            minLength: 10,
-            maxLength: 10,
-          }}
+          name="howmanychildren"
+          rules={{ required: "This feild is required", maxLength: "1" }}
           render={({ field }) => (
             <Grid item xs={12} md={6}>
               <TextField
-                required
-                id="mobilenumber"
-                label="Mobile Number"
+                id="howmanychildren"
+                label="How Many Children"
                 fullWidth
-                autoComplete="Mobile Number"
+                autoComplete="howmanychildren"
                 variant="standard"
                 {...field}
+                error={Boolean(errors?.howmanychildren)}
+                helperText={errors.howmanychildren?.message}
               />
-
               <small className="invalid">
-                {errors.mobilenumber?.type === "required" && (
-                  <p>Mobile number is required.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.mobilenumber?.type === "pattern" && (
-                  <p>Invalid Mobile number.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.mobilenumber?.type === "minLength" && (
-                  <p>Please enter 10 digits of mobile number.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.mobilenumber?.type === "maxLength" && (
-                  <p>Mobile number should have 10 digits only.</p>
+                {errors.howmanychildren?.type === "maxLength" && (
+                  <p>Please give proper count.</p>
                 )}
               </small>
             </Grid>
@@ -598,29 +487,40 @@ const PatientDetail = () => {
 
         <Controller
           control={control}
-          name="emailid"
-          rules={{
-            required: "State is required.",
-            pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
-            minLength: 2,
-          }}
+          name="currentmonth"
+          rules={{ required: "This feild is required" }}
           render={({ field }) => (
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="emailid"
-                label="Email Id"
-                fullWidth
-                autoComplete="emailId"
-                variant="standard"
-                {...field}
-              />
-
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Current Month
+                </InputLabel>
+                <NativeSelect
+                  autoComplete="Current Month"
+                  defaultValue=" "
+                  inputProps={{
+                    name: "currentmonth",
+                    id: "uncontrolled-native",
+                  }}
+                  {...field}
+                  error={Boolean(errors?.currentmonth)}
+                  helperText={errors.currentmonth?.message}
+                >
+                  <option value=""></option>
+                  <option value="First">First</option>
+                  <option value="Second">Second</option>
+                  <option value="Third">Third</option>
+                  <option value="Fourth">Fourth</option>
+                  <option value="Fifth">Fifth</option>
+                  <option value="Sixth">Sixth</option>
+                  <option value="Seventh">Seventh</option>
+                  <option value="Eighth">Eighth</option>
+                  <option value="Ninth">Ninth</option>
+                </NativeSelect>
+              </FormControl>
               <small className="invalid">
-                {errors.emailid?.type === "pattern" && <p>Invalid Email Id.</p>}
-              </small>
-              <small className="invalid">
-                {errors.emailid?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
+                {errors.currentmonth?.type === "required" && (
+                  <p>Current Month is required.</p>
                 )}
               </small>
             </Grid>
@@ -628,12 +528,13 @@ const PatientDetail = () => {
         />
       </Grid>
 
-     
+    
     </Container>
   );
 };
 const Report = () => {
   const {
+    register,
 
     formState: { errors },
   } = useFormContext({
@@ -645,40 +546,74 @@ const Report = () => {
 
   return (
     <>
-        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-      <Typography component="h1" variant="h4" align="center">
-        NewBorn Registration
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        NewBorn Details
-      </Typography>
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          NewBorn Details
+        </Typography>
 
-    <Grid container spacing={3}>
+        <Grid container spacing={3}>
         <Controller
           control={control}
-          name="vaccination"
-          rules={{ required: "State is required.", minLength: 2 }}
+          name="address"
+          rules={{ required: "Address is required." }}
           render={({ field }) => (
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               <TextField
-                required
-                id="vaccination"
-                name="vaccination"
-                label="Vaccination"
+                id="address"
+                name="address"
+                label="Address"
                 fullWidth
-                autoComplete="vaccination"
+                autoComplete="address"
                 variant="standard"
                 {...field}
+                error={Boolean(errors?.address)}
+                helperText={errors.address?.message}
+              />
+            </Grid>
+          )}
+        />
+      </Grid>
+
+      <Grid container spacing={3}>
+        <Controller
+          control={control}
+          name="city"
+          rules={{ required: "City is required." }}
+          render={({ field }) => (
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="city"
+                name="city"
+                label="City"
+                fullWidth
+                autoComplete="City"
+                variant="standard"
+                {...field}
+                error={Boolean(errors?.city)}
+                helperText={errors.city?.message}
+              />
+            </Grid>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="state"
+          rules={{ required: "State is required." }}
+          render={({ field }) => (
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="state"
+                label="State/Province/Region"
+                fullWidth
+                variant="standard"
+                {...register("state", { required: true })}
+                {...field}
+                error={Boolean(errors?.state)}
+                helperText={errors.state?.message}
               />
               <small className="invalid">
-                {errors.vaccination?.type === "required" && (
-                  <p>Vaccination is required.</p>
-                )}
-              </small>
-              <small className="invalid">
-                {errors.vaccination?.type === "minLength" && (
-                  <p>Please enter minimun 2 char.</p>
-                )}
+                {errors.state?.type === "required" && <p>State is required.</p>}
               </small>
             </Grid>
           )}
@@ -703,7 +638,6 @@ function getStepContent(step) {
 }
 
 const PatientRegi = () => {
-
   const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
 
   function formatDate(timestamp) {
@@ -713,8 +647,8 @@ const PatientRegi = () => {
     let YYYY = x.getFullYear();
     return YYYY + "/" + MM + "/" + DD;
   }
-  
-      const [selectedDate, setSelectedDate] = React.useState();
+
+  const [selectedDate, setSelectedDate] = React.useState();
 
   // const classes = useStyles();
   const methods = useForm({
@@ -747,13 +681,11 @@ const PatientRegi = () => {
   const handleNext = (patient) => {
     console.log(patient);
     if (activeStep === steps.length - 1) {
-      axios
-        .post("http://localhost:3000/patientregi", patient)
-        .then((res) => {
-          console.log(res);
-          console.log(patient);
-          setActiveStep(activeStep + 1);
-        });
+      axios.post("http://localhost:3000/patientregi", patient).then((res) => {
+        console.log(res);
+        console.log(patient);
+        setActiveStep(activeStep + 1);
+      });
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -790,7 +722,8 @@ const PatientRegi = () => {
 
               {activeStep === steps.length ? (
                 <Typography variant="h6" align="center">
-                   Pregnancy Registration Successful. Detailed Calender link shared with Mother.
+                  Pregnancy Registration Successful. Detailed Calender link
+                  shared with Mother.
                 </Typography>
               ) : (
                 <>
@@ -807,7 +740,6 @@ const PatientRegi = () => {
                       </Button>
 
                       <Button
-                        
                         variant="contained"
                         color="primary"
                         //  onClick={handleNext}
