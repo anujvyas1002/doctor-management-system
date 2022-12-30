@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Baby Information", "Basic Details", "Report"];
+  return ["Baby Information", "Basic Details"];
 }
 
 function Copyright() {
@@ -621,7 +621,7 @@ const BabyDetails = () => {
           control={control}
           name="emailid"
           rules={{
-            required: "State is required.",
+            required: "Email id is required.",
             pattern: /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/,
             minLength: 2,
           }}
@@ -635,7 +635,11 @@ const BabyDetails = () => {
                 variant="standard"
                 {...field}
               />
-
+     <small className="invalid">
+                {errors.emailid?.type === "required" && (
+                  <p>Email id is required.</p>
+                )}
+              </small>
               <small className="invalid">
                 {errors.emailid?.type === "pattern" && <p>Invalid Email Id.</p>}
               </small>
@@ -648,30 +652,8 @@ const BabyDetails = () => {
           )}
         />
       </Grid>
-    </Container>
-  );
-};
-const Report = () => {
-  const {
-    formState: { errors },
-  } = useFormContext({
-    mode: "onTouched",
-  });
-  console.log(errors);
 
-  const { control } = useFormContext();
-
-  return (
-    <>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-        <Typography component="h1" variant="h4" align="center">
-          NewBorn Registration
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          NewBorn Details
-        </Typography>
-
-        <Grid container spacing={3}>
+      <Grid container spacing={3}>
           <Controller
             control={control}
             name="vaccination"
@@ -701,10 +683,10 @@ const Report = () => {
             )}
           />
         </Grid>
-      </Container>
-    </>
+    </Container>
   );
 };
+
 
 function getStepContent(step) {
   switch (step) {
@@ -712,8 +694,7 @@ function getStepContent(step) {
       return <BabyInfo />;
     case 1:
       return <BabyDetails />;
-    case 2:
-      return <Report />;
+ 
     default:
       return "unknown step";
   }

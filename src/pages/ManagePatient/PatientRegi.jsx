@@ -433,7 +433,7 @@ const PatientDetail = () => {
         <Controller
           control={control}
           name="edd"
-          rules={{ minLength: "EDD is Required" }}
+          rules={{ required: "EDD is Required" ,}}
           render={({ field }) => (
             <Grid item xs={12} sm={6}>
               <div className="form-group">
@@ -448,10 +448,17 @@ const PatientDetail = () => {
                       value={selectedDate}
                       renderInput={(params) => <TextField {...params} />}
                       {...field}
-                      error={Boolean(errors?.dateofbirth)}
-                      helperText={errors.dateofbirth?.message}
+                      error={Boolean(errors?.edd)}
+                      helperText={errors.edd?.message}
                     />
+                      <small className="invalid">
+                {errors.edd?.type === "required" && (
+                  <p>Please enter valid EDD.</p>
+                )}
+              </small>
+             
                   </Stack>
+                  
                 </LocalizationProvider>
               </div>
             </Grid>
@@ -672,7 +679,7 @@ const PatientRegi = () => {
       city: "",
       state: "",
       postalcode: "",
-      country: "",
+  
     },
   });
   const [activeStep, setActiveStep] = useState(0);
