@@ -683,6 +683,7 @@ const BabyDetails = () => {
             )}
           />
         </Grid>
+
     </Container>
   );
 };
@@ -700,27 +701,26 @@ function getStepContent(step) {
   }
 }
 
-const DoctorRegi = () => {
+const PatientRegi = () => {
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
-      mothername: "",
-      fathername: "",
-      gender: "",
-      dateandtime: "",
+      firstname: "",
+      middlename: "",
+      lastname: "",
+      dateofbirth:"",
+      emailId: "",
+      mobilenumber: "",
+      // mcrnumber: "",
+      height: "",
       weight: "",
-      apgarscore: "",
-      delivery: "",
+      desease: "",
+      edd: "",
+      howmanychildren: "",
+      currentmonth: "",
       address: "",
       city: "",
       state: "",
-      postalcode: "",
-      country: "",
-      hospitalname: "",
-      doctorname: "",
-      phonenumber: "",
-      emailid: "",
-      vaccination: "",
     },
   });
   const [activeStep, setActiveStep] = useState(0);
@@ -813,4 +813,4 @@ const DoctorRegi = () => {
   );
 };
 
-export default DoctorRegi;
+export default PatientRegi;
