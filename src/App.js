@@ -14,9 +14,9 @@ import AboutUs from './pages/DashBoard/AboutUs';
 import Report from './pages/DashBoard/Report';
 import ContactUs from './pages/DashBoard/ContactUs';
 import LinaerStepper from './pages/ManageNewBorn/BabyRegi';
+import DoctorHistory from './pages/ManageDoctors/DoctorHistory';
 
 // import { CssBaseline, Container, Paper, Box } from "@material-ui/core";
-
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
    <Route path="/PatientRegi" element={<PatientRegi/>} />
    <Route path="/NewBornHistory" element={<NewBornHistory/>} />
    <Route path="PregnancyHistory" element={<PregnancyHistory/>} />
-
+   <Route path="DoctorHistory" element={<DoctorHistory/>} />
 
 
    <Route path="/Home" elemet={<Home/>}  /> 

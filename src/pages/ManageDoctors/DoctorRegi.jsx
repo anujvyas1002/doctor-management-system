@@ -442,8 +442,8 @@ const DoctorRegi = () => {
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
-      mothername: "",
-      fathername: "",
+      firstname: "",
+      lastname: "",
       gender: "",
       dateandtime: "",
       weight: "",
