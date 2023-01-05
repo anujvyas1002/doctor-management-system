@@ -62,6 +62,9 @@ const PersonalInfo = () => {
   console.log(errors);
 
   const { control } = useFormContext();
+
+    const [recordForEdit, setRecordForEdit] = useState(null);
+
   return (
     <div>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -507,7 +510,7 @@ const DoctorRegi = () => {
               ) : (
                 <>
                   <FormProvider {...methods}>
-                    <form onSubmit={methods.handleSubmit(handleNext)}>
+                    <form onSubmit={methods.handleSubmit(handleNext)}  recordForEdit={recordForEdit}>
                       {getStepContent(activeStep)}
 
                       <Button

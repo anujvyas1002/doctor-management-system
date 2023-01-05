@@ -12,8 +12,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { format } from "date-fns";
+import Modal from '@mui/material/Modal';
 
 import { Button } from "@mui/material";
+import { UpdateDoctor } from "./UpdateDoctor";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -73,10 +75,15 @@ export default function DataTable() {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [recordForEdit, setRecordForEdit] = useState(null);
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
+  // const [edit, setEdit] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -85,7 +92,7 @@ export default function DataTable() {
 
   useEffect(() => {
     axios
-      .get("  http://localhost:3000/doctorregi")
+      .get("http://localhost:3000/doctorregi")
       .then((res) => {
         console.log(res.data);
         setUser(res?.data);
@@ -95,10 +102,44 @@ export default function DataTable() {
       });
   }, []);
 
+  const doctorHistoryOpen = (user) => {
+    // setEdit(user);
+    setOpen(true);
+  };
+
+  const doctorHistoryClose = () =>{
+    setOpen(false);
+  };
+
+    //----------to auto update data----------
+    const FetchData = () => {
+      axios.get(`http://localhost:3000/doctorregi`).then((res) => {
+        console.log(res.data);
+        setUser(res?.data);
+      });
+    };
+
+    const openInPopup = (item) =>{
+      setRecordForEdit(item);
+    };
+
   return (
     <div style={{ marginTop: "15vh" }}>
       <Header />
       <h1>Doctor Registration History....!!</h1>
+      
+      <Modal
+        open={open}
+        onClose={doctorHistoryClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+           <UpdateDoctor
+          onClose={doctorHistoryClose}
+          // employeeData={edit}
+          fetchAPI={FetchData}
+        ></UpdateDoctor>
+      </Modal>
 
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -133,7 +174,7 @@ export default function DataTable() {
                     <TableCell align="left" direction="row">
                       <Button
                         variant="outlined"
-                        // onClick={(e) => alertOpen(user)}
+                        onClick={(e) =>doctorHistoryOpen(user)}
                         className="space"
                       >
                         <VisibilityIcon />
