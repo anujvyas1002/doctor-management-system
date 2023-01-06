@@ -63,7 +63,6 @@ const PersonalInfo = () => {
 
   const { control } = useFormContext();
 
-    const [recordForEdit, setRecordForEdit] = useState(null);
 
   return (
     <div>
@@ -477,6 +476,9 @@ const DoctorRegi = () => {
   };
 
   const paperStyle = { padding: "10px 10px", width: 600, margin: "10px auto" };
+
+  const [recordForEdit, setRecordForEdit] = useState(null);
+
 
   return (
     <>
