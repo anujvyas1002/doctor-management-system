@@ -53,17 +53,22 @@ export default function DataTable() {
     //   format: (value) => value.toLocaleString("en-US"),
     // },
     { id: "4", label: "Last Name", minWidth: 100 },
-    { id: "5", label: "Date Of Birth",  minWidth: 100,
-    format: ({value}) => {return format(new Date(value),'dd/mm/yyyy')},}, 
+    // { id: "5", label: "Date Of Birth",  minWidth: 100,
+    // format: ({value}) => {return format(new Date(value),'dd/mm/yyyy')},}, 
+         { id: "5",
+     label: "BIRTH DATE",
+      minWidth: 100,
+      format: (value) => value.toLocaleString("en-US"),
+    },
     {
       id: "6",
-      label: "Weight",
+      label: "WEIGHT",
       minWidth: 100
-    },
+    },  
     { id: "7", label: "EDD", minWidth: 100 },
-    { id: "8", label: "Current Month", minWidth: 100 },
+    { id: "8", label: "CURRENT MONTH", minWidth: 100 },
     { id: "9", label: "PHONE NUMBER", minWidth: 100 },
-    { id: "10", label: "City    ", minWidth: 100 },
+    { id: "10", label: "CITY", minWidth: 100 },
 
   ];
 
@@ -72,6 +77,7 @@ export default function DataTable() {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

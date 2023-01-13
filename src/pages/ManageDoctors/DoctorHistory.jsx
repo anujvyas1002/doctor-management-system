@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import Modal from '@mui/material/Modal';
 
 import { Button } from "@mui/material";
-import { UpdateDoctor } from "./UpdateDoctor";
+import UpdateDoctor from "./UpdateDoctor";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },

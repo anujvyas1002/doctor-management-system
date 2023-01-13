@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import InputLabel from "@mui/material/InputLabel";
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Basic Information", "Doctor Details"];
+  return ["Basic Information", "Doctor Details"]; 
 }
 
 function Copyright() {
@@ -440,7 +441,7 @@ function getStepContent(step) {
   }
 }
 
-const DoctorRegi = () => {
+const UpdateDoctor = () => {
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
@@ -458,6 +459,13 @@ const DoctorRegi = () => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
+  const {
+    setValue,
+
+  } = useForm({
+    mode: "onTouched",
+  });
+
   const handleNext = (docregi) => {
     console.log(docregi);
     if (activeStep === steps.length - 1) {
@@ -470,6 +478,7 @@ const DoctorRegi = () => {
       setActiveStep(activeStep + 1);
     }
   };
+
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
@@ -484,6 +493,7 @@ const DoctorRegi = () => {
     <>
       <Header />
       <div style={{ marginTop: "10vh", marginBottom: "10vh" }}>
+        
         <Paper elevation={20} style={paperStyle}>
           <CssBaseline />
 
@@ -546,4 +556,4 @@ const DoctorRegi = () => {
   );
 };
 
-export default DoctorRegi;
+export default UpdateDoctor;

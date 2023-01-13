@@ -68,7 +68,18 @@ const PersonalInfo = () => {
   console.log(errors);
 
   const { control } = useFormContext();
+
+
   const [selectedDate, setSelectedDate] = React.useState();
+
+  //const [roles, setRoles] = useState({});
+  function formatDate(timestamp) {
+    let x = new Date(timestamp);
+    let DD = x.getDate();
+    let MM = x.getMonth() + 1;
+    let YYYY = x.getFullYear();
+    return YYYY + "/" + MM + "/" + DD;
+  }
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -556,12 +567,25 @@ function getStepContent(step) {
 
 const PatientRegi = () => {
   const classes = useStyles();
+
+
+  const [selectedDate, setSelectedDate] = React.useState();
+
+  //const [roles, setRoles] = useState({});
+  function formatDate(timestamp) {
+    let x = new Date(timestamp);
+    let DD = x.getDate();
+    let MM = x.getMonth() + 1;
+    let YYYY = x.getFullYear();
+    return YYYY + "/" + MM + "/" + DD;
+  }
+ 
   const methods = useForm({
     defaultValues: {
       firstname: "",
       middlename: "",
       lastname: "",
-      dateofbirth:"",
+      dateofbirth:formatDate(selectedDate),
       emailId: "",
       mobilenumber: "",
       // mcrnumber: "",
@@ -578,7 +602,7 @@ const PatientRegi = () => {
   });
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
-
+  
   const handleNext = (patient) => {
     console.log(patient);
     if (activeStep === steps.length - 1) {

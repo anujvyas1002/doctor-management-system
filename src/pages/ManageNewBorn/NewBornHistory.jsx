@@ -24,34 +24,33 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import {format} from 'date-fns'
+import { format } from "date-fns";
+import { Button, Input } from "@mui/material";
 
-import { Button } from "@mui/material";
+// const columns = [
+//   { field: "id", headerName: "ID", width: 70 },
+//   { field: "mothername", headerName: "Mother Name", width: 130},
+//   { field: "fathername", headerName: "Father Name", width: 130 },
+//   { field: "gender", headerName: "Gender", width: 130 },
+//   { field: "dateandtime", headerName: "Date & Time", type: "date", width: 130 },
+//   { field: " weight", headerName: "Weight", type: "number", width: 130 },
+//   { field: "apgarscore", headerName: "Apgar Score", width: 130 },
+//   { field: "delivery", headerName: "Delivery", width: 130 },
+//   { field: " phonenumber", headerName: "Phone Number", width: 130 },
 
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "mothername", headerName: "Mother Name", width: 130 },
-  { field: "fathername", headerName: "Father Name", width: 130 },
-  { field: "gender", headerName: "Gender", width: 130 },
-  { field: "dateandtime", headerName: "Date & Time", type: "date", width: 130 },
-  { field: " weight", headerName: "Weight", type: "number", width: 130 },
-  { field: "apgarscore", headerName: "Apgar Score", width: 130 },
-  { field: "delivery", headerName: "Delivery", width: 130 },
-  { field: " phonenumber", headerName: "Phone Number", width: 130 },
+//   {
+//     field: "fullName",
+//     headerName: "Full name",
+//     description: "This column has a value getter and is not sortable.",
+//     sortable: false,
+//     width: 160,
+//     valueGetter: (params) =>
+//       `${params.row.mothername || ""} ${params.row.fathername || ""}`,
+//   },
+// ];
 
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.mothername || ""} ${params.row.fathername || ""}`,
-  },
-];
-
-export default function DataTable() {
-
+export default function DataTable(column) {
+  // const { filterValue, setFilterValue } = column;
   const columns = [
     { id: "1", label: "ID", minWidth: 50 },
     { id: "2", label: "MOTHER NAME", minWidth: 100 },
@@ -63,25 +62,32 @@ export default function DataTable() {
     //   format: (value) => value.toLocaleString("en-US"),
     // },
     { id: "4", label: "GENDER", minWidth: 100 },
-    { id: "5", label: "DATE AND TIME",  minWidth: 100,
-    format: ({value}) => {return format(new Date(value),'dd/mm/yyyy')},}, 
+    {
+      id: "5",
+      label: "DATE AND TIME",
+      minWidth: 100,
+      format: ({ value }) => {
+        return format(new Date(value), "dd/mm/yyyy");
+      },
+    },
     {
       id: "6",
       label: "WEIGHT",
-      minWidth: 100
+      minWidth: 100,
     },
     { id: "7", label: "APGAR SCORE", minWidth: 100 },
     { id: "8", label: "DELIVERY", minWidth: 100 },
     { id: "9", label: "PHONE NUMBER", minWidth: 100 },
     { id: "10", label: "VIEW", minWidth: 100 },
-
   ];
-
 
   const [user, setUser] = useState([]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [data, setData] = useState([]);
+  const [searchAPiData, setSearchApiData] = useState([]);
+  const [filterVal, setFilterVal] = useState();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -93,27 +99,63 @@ export default function DataTable() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/newbornregistration")
-      .then((res) => {
-        console.log(res.data);
-        setUser(res?.data);
-      })
-      .catch((err) => {
-        alert("something went wrong");
-      });
+    const fetchData = () => {
+      axios
+        .get("http://localhost:3000/newbornregistration")
+        .then((res) => {
+          console.log(res.data);
+          setUser(res?.data);
+          setData(res);
+          setSearchApiData(res.data);
+        })
+        .catch((err) => {
+          alert("something went wrong");
+        });
+    };
+    fetchData();
   }, []);
+
+  const handleFilter = (e) => {
+    if (e.target.value === "") {
+      setUser(searchAPiData);
+    } else {
+      const filterResult = searchAPiData.filter((item) => {
+        return (item.mothername
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase()));
+         
+          
+        // setUser(filterResult);
+        // console.log(filterResult)
+      }
+      );
+      setUser(filterResult);
+    }
+    setFilterVal(e.target.value);
+  };
 
   return (
     <div style={{ marginTop: "15vh" }}>
       <Header />
       <h1>New Born History....!!</h1>
+      <Input
+        type="text"
+        placeholder="Search"
+        value={filterVal || ''}
+        onChange={(e) => handleFilter(e)}
+      ></Input>
+
+      {/* <input
+        placeholder="Search"
+        value={filterVal || ""}
+        onChange={(e) => handleFilter(e)}
+      /> */}
 
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow>
+              {/* <TableRow>
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}
@@ -123,6 +165,46 @@ export default function DataTable() {
                     {column.label}
                   </TableCell>
                 ))}
+              </TableRow> */}
+                <TableRow>
+                {/* {columns.map((column) => ( */}
+                  {/* <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  > */}
+                    {/* {column.label} */}
+                  {/* </TableCell> */}
+                  <TableCell >
+                   ssss
+                  </TableCell>
+                  <TableCell >
+                   sdfg
+                   </TableCell>
+                   <TableCell >
+                   sdfg
+                   </TableCell>
+                   <TableCell >
+                   sdfg
+                   </TableCell>
+                   <TableCell >
+                   sdfgh
+                   </TableCell>
+                   <TableCell >
+                   sdfg
+                   </TableCell>
+                   <TableCell >
+                   sdfg
+                   </TableCell>
+                   <TableCell >
+                   sdfgh
+                   </TableCell>
+                   <TableCell >
+                   sdfgh
+                   </TableCell>
+                   
+
+                {/* ))} */}
               </TableRow>
             </TableHead>
 

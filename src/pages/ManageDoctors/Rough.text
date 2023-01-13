@@ -138,3 +138,15 @@
     
 
     //-----------------------------------------
+
+
+
+
+sonar-scanner \-Dsonar.projectKey=DOCLIFE \-Dsonar.sources=. \-Dsonar.host.url=http://localhost:9000 \Dsonar.login=sqp_aeb049897f3c91cb7d8138c85616c6ce75cc3312
+
+
+
+sonar-scanner \Dsonar.projectKey=DOCLIFE \Dsonar.sources=. \Dsonar.host.url=http://localhost:9000 \Dsonar.login=sqp_aeb049897f3c91cb7d8138c85616c6ce75cc3312
+
+
+
